@@ -123,6 +123,82 @@ namespace MeineSammlungen_3
 
         }
         #endregion
+        #region Exponate
+        public static void AddExponate(Exponate exponate)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                conn.Exponate.InsertOnSubmit(exponate);
+                conn.SubmitChanges();
+            }
+
+        }
+
+        public static void EditExponate(Exponate exponate)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                Exponate ex = (from x in conn.Exponate where x.ID == exponate.ID select x).FirstOrDefault();
+                ex.Fundstelle_Land = exponate.Fundstelle_Land;
+                ex.Fundstelle_Ort = exponate.Fundstelle_Ort;
+                ex.Fund_Datum = exponate.Fund_Datum;
+                ex.Grunddaten_ID = exponate.Grunddaten_ID;
+                ex.Hinweise = exponate.Hinweise;
+                ex.Koordinaten = exponate.Koordinaten;
+                conn.SubmitChanges();
+            }
+
+        }
+        public static void DelExponate(Exponate exponate)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                var ex = from x in conn.Exponate where x.ID == exponate.ID select x;
+                conn.Exponate.DeleteAllOnSubmit(ex);
+                conn.SubmitChanges();
+            }
+
+        }
+        #endregion
+        #region Mineral
+        public static void AddMineralien(Mineralien mineralien)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                conn.Mineralien.InsertOnSubmit(mineralien);
+                conn.SubmitChanges();
+            }
+
+        }
+
+        public static void EditMineralien(Mineralien mineralien)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                Mineralien min = (from m in conn.Mineralien where m.ID == mineralien.ID select m).FirstOrDefault();
+                min.Gewicht = mineralien.Gewicht;
+                min.Grunddaten_ID = mineralien.Grunddaten_ID;
+                min.Hinweise = mineralien.Hinweise;
+                min.Koordinaten = mineralien.Koordinaten;
+                min.Volumen = mineralien.Volumen;
+                min.Zusammensetzung = mineralien.Zusammensetzung;
+                min.Dichte = mineralien.Dichte;
+                conn.SubmitChanges();
+            }
+
+        }
+        public static void DelExponate(Exponate exponate)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                var ex = from x in conn.Exponate where x.ID == exponate.ID select x;
+                conn.Exponate.DeleteAllOnSubmit(ex);
+                conn.SubmitChanges();
+            }
+
+        }
+        #endregion
+
         #region Ablage
         public static void AddAblage(Ablage ablage)
         {
@@ -153,7 +229,8 @@ namespace MeineSammlungen_3
                 conn.Ablage.DeleteAllOnSubmit(ab);
                 conn.SubmitChanges();
             }
-            #endregion
         }
+        #endregion
+      
     }
 }

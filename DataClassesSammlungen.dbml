@@ -47,4 +47,30 @@
       <Association Name="Grunddaten_Ablage" Member="Grunddaten" ThisKey="ID" OtherKey="Ablageort_neu" Type="Grunddaten" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Exponate" Member="Exponate">
+    <Type Name="Exponate">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Fundstelle_Land" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Fundstelle_Ort" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Koordinaten" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Hinweise" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Grunddaten_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Fund_Datum" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Mineralien" Member="Mineralien">
+    <Type Name="Mineralien">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Fundstelle_Land" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Fundstelle_Ort" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Koordinaten" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Hinweise" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Grunddaten_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Fund_Datum" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Gewicht" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Volumen" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Dichte" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="Zusammensetzung" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

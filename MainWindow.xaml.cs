@@ -92,6 +92,7 @@ namespace MeineSammlungen_3
                     PageModul.Content = new PageMikroMakro(gID);
                     break;
                 case 2:
+                    PageModul.Content = new PageExponate(gID);
                     break;
             }
         }

@@ -40,5 +40,17 @@
         <classShapeMoniker Id="c100187f-b005-493f-b8bc-6835d64edb82" />
       </nodes>
     </associationConnector>
+    <classShape Id="88dc6b1b-b8ca-4f73-b385-241093fe3356" absoluteBounds="5.875, 2.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/DataClassesSammlungenDataContext/Exponate" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5bfa0f50-b69a-4d6c-8624-369bd7081ae1" absoluteBounds="5.8900000000000006, 3.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c8a55722-51c8-46ff-87f0-e5851303d769" absoluteBounds="8, 2.875, 2, 2.9247054036458331">
+      <DataClassMoniker Name="/DataClassesSammlungenDataContext/Mineralien" />
+      <nestedChildShapes>
+        <elementListCompartment Id="70c185a8-23fb-4b0c-a9b0-a59213381452" absoluteBounds="8.015, 3.335, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

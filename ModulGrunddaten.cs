@@ -187,12 +187,12 @@ namespace MeineSammlungen_3
             }
 
         }
-        public static void DelExponate(Exponate exponate)
+        public static void DelMineralien(Mineralien mineralien)
         {
             using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
             {
-                var ex = from x in conn.Exponate where x.ID == exponate.ID select x;
-                conn.Exponate.DeleteAllOnSubmit(ex);
+                var ex = from m in conn.Mineralien where m.ID == mineralien.ID select m;
+                conn.Mineralien.DeleteAllOnSubmit(ex);
                 conn.SubmitChanges();
             }
 

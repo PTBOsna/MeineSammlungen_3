@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="SasmmlungMS" Class="DataClassesSammlungenDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=SasmmlungMS;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework" SettingsObjectName="MeineSammlungen_3.Properties.Settings" SettingsPropertyName="SasmmlungMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Grunddaten" Member="Grunddaten">
+    <Type Name="Grunddaten">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LfdNr" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Modul" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nr" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="Objekt" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Detail" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Bemerkung" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Ablageort" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Ablageort_neu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Erstellt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Geaendert" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Checked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ImgCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Module_Grunddaten" Member="Module" ThisKey="Modul" OtherKey="ID" Type="Module" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Module" Member="Module">
+    <Type Name="Module">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Modul" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Module_Grunddaten" Member="Grunddaten" ThisKey="ID" OtherKey="Modul" Type="Grunddaten" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ModulMikro" Member="ModulMikro">
+    <Type Name="ModulMikro">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Schnittebene" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Schnittart" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Farbung" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Aufhellung" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Fixierung" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Einschluss" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Hineise" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Grunddaten_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

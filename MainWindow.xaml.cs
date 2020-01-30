@@ -65,6 +65,12 @@ namespace MeineSammlungen_3
             {
                 return;
             }
+            //Ablageort ermitteln
+            var abl = from a in Admin.con.Ablage where a.ID == sel.Ablageort_neu select a;
+            foreach (var item in abl)
+            {
+                AblageortText.Text = item.Ablageort;
+            }
             lblObjektNr.Content = "Objekt Nr.: " + sel.Nr;
             ObjektText.Text = sel.Objekt;
             DetailText.Text = sel.Detail;
@@ -78,7 +84,21 @@ namespace MeineSammlungen_3
             if (sel.Checked == true)
             { lblBearbeitung.Content = "Weitere Bearbeitung erforderlich"; }
             else lblBearbeitung.Content = null;
+
+            switch (sel.Modul)
+            {
+                case 1:
+                   MessageBox.Show("Case1");
+                    PageModul.Content = new PageMikroMakro(gID);
+                    break;
+                case 2:
+                    break;
+            }
         }
 
+        private void PageModul_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
     }
 }

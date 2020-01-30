@@ -10,6 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -30,10 +31,10 @@
                 <DataGridTextColumn Header="Detail" Binding="{Binding Path=Detail}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+        <Grid Grid.Row="2" Grid.Column="1" >
             <!--Anzeige Grunddaten-->
 
-            <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="0 5 0 5" BorderBrush="DimGray" BorderThickness="1">
+            <Border Grid.Row="2" Grid.Column="1"  Margin="0 5 0 5" BorderBrush="DimGray" BorderThickness="1">
                 <StackPanel Grid.Row="0" Background="AliceBlue">
                     <Label Name="lblObjektNr" Content="Objekt-Nr.: " FontWeight="Bold" Tag="ModulID - ObjektID"/>
                     <Label Content="Objekt"/>
@@ -54,5 +55,12 @@
                 </StackPanel>
             </Border>
         </Grid>
+        <!--UserControl (Module)-->
+        <Border Margin="0 5 0 5" Grid.Column="2" Grid.Row="2" BorderBrush="DimGray" BorderThickness="1">
+            <!--<StackPanel Background="Azure" x:Name="ucPanel"  Grid.Row="1">
+<
+                    </StackPanel>-->
+            <Frame x:Name="PageModul" NavigationUIVisibility="Hidden" Navigated="PageModul_Navigated"/>
+        </Border>
     </Grid>
 </Window>

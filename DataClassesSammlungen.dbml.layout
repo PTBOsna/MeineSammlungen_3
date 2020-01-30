@@ -27,5 +27,18 @@
         <classShapeMoniker Id="98e9b8f4-a40d-4496-9278-9a507009286e" />
       </nodes>
     </associationConnector>
+    <classShape Id="c100187f-b005-493f-b8bc-6835d64edb82" absoluteBounds="8.375, 1, 2, 1.3862939453125">
+      <DataClassMoniker Name="/DataClassesSammlungenDataContext/Ablage" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d0da9942-ef6c-4fb8-9725-3dd785217a0e" absoluteBounds="8.39, 1.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.19639322916667); (8.375 : 2.19639322916667)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesSammlungenDataContext/Grunddaten/Grunddaten_Ablage" />
+      <nodes>
+        <classShapeMoniker Id="98e9b8f4-a40d-4496-9278-9a507009286e" />
+        <classShapeMoniker Id="c100187f-b005-493f-b8bc-6835d64edb82" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

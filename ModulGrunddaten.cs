@@ -123,6 +123,37 @@ namespace MeineSammlungen_3
 
         }
         #endregion
-    }
+        #region Ablage
+        public static void AddAblage(Ablage ablage)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                conn.Ablage.InsertOnSubmit(ablage);
+                conn.SubmitChanges();
+            }
 
+        }
+
+        public static void EditAblage(Ablage ablage)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                Ablage ab = (from a in conn.Ablage where a.ID == ablage.ID select a).FirstOrDefault();
+                ab.Ablageort = ablage.Ablageort;
+                ab.Beschreibung = ablage.Beschreibung;
+                conn.SubmitChanges();
+            }
+
+        }
+        public static void DeleteAblage(Ablage ablage)
+        {
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                var ab = from a in conn.Ablage where a.ID == ablage.ID select a;
+                conn.Ablage.DeleteAllOnSubmit(ab);
+                conn.SubmitChanges();
+            }
+            #endregion
+        }
+    }
 }

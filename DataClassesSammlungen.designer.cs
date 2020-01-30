@@ -39,6 +39,9 @@ namespace MeineSammlungen_3
     partial void InsertModulMikro(ModulMikro instance);
     partial void UpdateModulMikro(ModulMikro instance);
     partial void DeleteModulMikro(ModulMikro instance);
+    partial void InsertAblage(Ablage instance);
+    partial void UpdateAblage(Ablage instance);
+    partial void DeleteAblage(Ablage instance);
     #endregion
 		
 		public DataClassesSammlungenDataContext() : 
@@ -94,6 +97,14 @@ namespace MeineSammlungen_3
 				return this.GetTable<ModulMikro>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Ablage> Ablage
+		{
+			get
+			{
+				return this.GetTable<Ablage>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Grunddaten")]
@@ -127,6 +138,8 @@ namespace MeineSammlungen_3
 		private System.Nullable<bool> _Checked;
 		
 		private int _ImgCount;
+		
+		private EntitySet<Ablage> _Ablage;
 		
 		private EntityRef<Module> _Module;
 		
@@ -164,6 +177,7 @@ namespace MeineSammlungen_3
 		
 		public Grunddaten()
 		{
+			this._Ablage = new EntitySet<Ablage>(new Action<Ablage>(this.attach_Ablage), new Action<Ablage>(this.detach_Ablage));
 			this._Module = default(EntityRef<Module>);
 			OnCreated();
 		}
@@ -432,6 +446,19 @@ namespace MeineSammlungen_3
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grunddaten_Ablage", Storage="_Ablage", ThisKey="Ablageort_neu", OtherKey="ID")]
+		public EntitySet<Ablage> Ablage
+		{
+			get
+			{
+				return this._Ablage;
+			}
+			set
+			{
+				this._Ablage.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_Grunddaten", Storage="_Module", ThisKey="Modul", OtherKey="ID", IsForeignKey=true)]
 		public Module Module
 		{
@@ -484,6 +511,18 @@ namespace MeineSammlungen_3
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Ablage(Ablage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Grunddaten = this;
+		}
+		
+		private void detach_Ablage(Ablage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Grunddaten = null;
 		}
 	}
 	
@@ -830,6 +869,157 @@ namespace MeineSammlungen_3
 					this._Grunddaten_ID = value;
 					this.SendPropertyChanged("Grunddaten_ID");
 					this.OnGrunddaten_IDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Ablage")]
+	public partial class Ablage : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Ablageort;
+		
+		private string _Beschreibung;
+		
+		private EntityRef<Grunddaten> _Grunddaten;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnAblageortChanging(string value);
+    partial void OnAblageortChanged();
+    partial void OnBeschreibungChanging(string value);
+    partial void OnBeschreibungChanged();
+    #endregion
+		
+		public Ablage()
+		{
+			this._Grunddaten = default(EntityRef<Grunddaten>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					if (this._Grunddaten.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ablageort", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Ablageort
+		{
+			get
+			{
+				return this._Ablageort;
+			}
+			set
+			{
+				if ((this._Ablageort != value))
+				{
+					this.OnAblageortChanging(value);
+					this.SendPropertyChanging();
+					this._Ablageort = value;
+					this.SendPropertyChanged("Ablageort");
+					this.OnAblageortChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beschreibung", DbType="VarChar(250)")]
+		public string Beschreibung
+		{
+			get
+			{
+				return this._Beschreibung;
+			}
+			set
+			{
+				if ((this._Beschreibung != value))
+				{
+					this.OnBeschreibungChanging(value);
+					this.SendPropertyChanging();
+					this._Beschreibung = value;
+					this.SendPropertyChanged("Beschreibung");
+					this.OnBeschreibungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Grunddaten_Ablage", Storage="_Grunddaten", ThisKey="ID", OtherKey="Ablageort_neu", IsForeignKey=true)]
+		public Grunddaten Grunddaten
+		{
+			get
+			{
+				return this._Grunddaten.Entity;
+			}
+			set
+			{
+				Grunddaten previousValue = this._Grunddaten.Entity;
+				if (((previousValue != value) 
+							|| (this._Grunddaten.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Grunddaten.Entity = null;
+						previousValue.Ablage.Remove(this);
+					}
+					this._Grunddaten.Entity = value;
+					if ((value != null))
+					{
+						value.Ablage.Add(this);
+						this._ID = value.Ablageort_neu;
+					}
+					else
+					{
+						this._ID = default(int);
+					}
+					this.SendPropertyChanged("Grunddaten");
 				}
 			}
 		}

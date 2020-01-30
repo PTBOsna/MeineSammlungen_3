@@ -30,6 +30,7 @@ namespace MeineSammlungen_3
             //DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
             List<Module> modules = (from m in Admin. con.Module select m).ToList();
             ModulGrid. ItemsSource = modules;
+            
 
         }
 
@@ -43,6 +44,12 @@ namespace MeineSammlungen_3
             GdGrid.ItemsSource = myDetail.ToList();
 
 
+        }
+
+        private void BtnAllesClick(object sender, RoutedEventArgs e)
+        {
+            var myDetail = from d in Admin.con.Grunddaten  select d;
+            GdGrid.ItemsSource = myDetail.ToList();
         }
     }
 }

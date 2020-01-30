@@ -13,13 +13,22 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="0" Name="ModulGrid" SelectionChanged="ModulGrid_SelectionChanged">
-            
+        <StackPanel Grid.Row="0" Grid.Column="0" Background="LightSteelBlue">
+            <Button Content="Alle Module" Name="btAlleModule" Click="BtnAllesClick" />
+            <DataGrid Grid.Row="1" Name="ModulGrid" SelectionChanged="ModulGrid_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Modul" Binding="{Binding Path=Modul}"/>
+            </DataGrid.Columns> 
         </DataGrid>
-        <DataGrid Grid.Row="1" x:Name="GdGrid">
-            
+        </StackPanel>
+        <DataGrid Grid.Row="2" x:Name="GdGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Objekt" Binding="{Binding Path=Objekt}"/>
+                <DataGridTextColumn Header="Detail" Binding="{Binding Path=Detail}"/>
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>

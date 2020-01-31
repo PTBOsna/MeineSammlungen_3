@@ -56,10 +56,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddEditMikro.xaml.cs">
+      <DependentUpon>AddEditMikro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageExponate.xaml.cs">
       <DependentUpon>PageExponate.xaml</DependentUpon>
     </Compile>
     <Compile Include="System\Windows\Forms.cs" />
+    <Page Include="AddEditMikro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

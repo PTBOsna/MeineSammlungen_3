@@ -16,6 +16,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Background="LightSteelBlue">
             <Button Content="Alle Module" Name="btAlleModule" Click="BtnAllesClick" />
@@ -62,5 +63,10 @@
                     </StackPanel>-->
             <Frame x:Name="PageModul" NavigationUIVisibility="Hidden" Navigated="PageModul_Navigated"/>
         </Border>
+        <Button Grid.Column="0" Grid.Row="3" Content="Neu" Name="BtnAddDetail" Click="BtnAddDetail_Click"/>
+        <UniformGrid Grid.Row="3" Grid.Column="1" Columns="2">
+            <Button Content="Daten ansehen/ändern" Name="MyButton" Click="Button_edit_Click"/>
+            <Button  Content="Datensatz löschen" Name="DelButton" Click="Del_Butten_Click"/>
+        </UniformGrid>
     </Grid>
 </Window>

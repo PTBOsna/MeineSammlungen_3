@@ -10,33 +10,33 @@ namespace MeineSammlungen_3
     {
         public static DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         #region Grunddaten
-        public static void AddGrunddaten(Grunddaten _ModulMikro)
+        public static void AddGrunddaten(Grunddaten grunddaten)
         {
             using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
             {
-                conn.Grunddaten.InsertOnSubmit(_ModulMikro);
+                conn.Grunddaten.InsertOnSubmit(grunddaten);
                 conn.SubmitChanges();
             }
 
         }
 
-        public static void EditGrunddaten(Grunddaten _ModulMikro)
+        public static void EditGrunddaten(Grunddaten grunddaten)
         {
             using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
             {
-                Grunddaten gd = (from g in conn.Grunddaten where g.ID == _ModulMikro.ID select g).FirstOrDefault();
-                gd.LfdNr = _ModulMikro.LfdNr;
-                gd.Modul = _ModulMikro.Modul;
-                gd.Nr = _ModulMikro.Nr;
-                gd.Objekt = _ModulMikro.Objekt;
-                gd.Detail = _ModulMikro.Detail;
-                gd.Bemerkung = _ModulMikro.Bemerkung;
-                gd.Ablageort = _ModulMikro.Ablageort;
-                gd.Ablageort_neu = _ModulMikro.Ablageort_neu;
-                gd.Erstellt = _ModulMikro.Erstellt;
-                gd.Geaendert = _ModulMikro.Geaendert;
-                gd.Checked = _ModulMikro.Checked;
-                gd.ImgCount = _ModulMikro.ImgCount;
+                Grunddaten gd = (from g in conn.Grunddaten where g.ID == grunddaten.ID select g).FirstOrDefault();
+                gd.LfdNr = grunddaten.LfdNr;
+                gd.Modul = grunddaten.Modul;
+                gd.Nr = grunddaten.Nr;
+                gd.Objekt = grunddaten.Objekt;
+                gd.Detail = grunddaten.Detail;
+                gd.Bemerkung = grunddaten.Bemerkung;
+                gd.Ablageort = grunddaten.Ablageort;
+                gd.Ablageort_neu = grunddaten.Ablageort_neu;
+                gd.Erstellt = grunddaten.Erstellt;
+                gd.Geaendert = grunddaten.Geaendert;
+                gd.Checked = grunddaten.Checked;
+                gd.ImgCount = grunddaten.ImgCount;
                 conn.SubmitChanges();
             }
 
@@ -85,7 +85,7 @@ namespace MeineSammlungen_3
         }
         #endregion
         #region MikroMakro
-        public static void AddModulMikro(ModulMikro _ModulMikro)
+        public static void AddMikro(ModulMikro _ModulMikro)
         {
             using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
             {
@@ -95,7 +95,7 @@ namespace MeineSammlungen_3
 
         }
 
-        public static void EditModulMikro(ModulMikro _ModulMikro)
+        public static void EditMikro(ModulMikro _ModulMikro)
         {
             using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
             {
@@ -112,7 +112,7 @@ namespace MeineSammlungen_3
             }
 
         }
-        public static void DeleteModulMikro(ModulMikro _ModulMikro)
+        public static void DeleteMikro(ModulMikro _ModulMikro)
         {
             using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
             {

@@ -88,7 +88,7 @@ namespace MeineSammlungen_3
             switch (sel.Modul)
             {
                 case 1:
-                   MessageBox.Show("Case1");
+                   //MessageBox.Show("Case1");
                     PageModul.Content = new PageMikroMakro(gID);
                     break;
                 case 2:
@@ -101,5 +101,41 @@ namespace MeineSammlungen_3
         {
 
         }
+
+        private void BtnAddDetail_Click(object sender, RoutedEventArgs e)
+        {
+            switch (ModulID)
+            {
+                case 1:
+                    string openArgs = ModulID + "#1"; //1 -> neuer Datensatz
+                    AddEditMikro mmNeu = new AddEditMikro(openArgs);
+                    mmNeu.ShowDialog();
+                    break;
+                case 2:
+                    PageModul.Content = new PageExponate(gID);
+                    break;
+            }
+        }
+
+        private void Button_edit_Click(object sender, RoutedEventArgs e)
+        {
+            switch (ModulID)
+            {
+                case 1:
+                    string openArgs = gID + "#2"; //2 -> Datensatz editieren
+                    AddEditMikro mmNeu = new AddEditMikro(openArgs);
+                    mmNeu.ShowDialog();
+                    break;
+                case 2:
+                    PageModul.Content = new PageExponate(gID);
+                    break;
+            }
+        }
+
+        private void Del_Butten_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+    
 }

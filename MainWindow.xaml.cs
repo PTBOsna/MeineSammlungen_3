@@ -115,6 +115,7 @@ namespace MeineSammlungen_3
                     PageModul.Content = new PageExponate(gID);
                     break;
             }
+            ReloadGD();
         }
 
         private void Button_edit_Click(object sender, RoutedEventArgs e)
@@ -130,6 +131,13 @@ namespace MeineSammlungen_3
                     PageModul.Content = new PageExponate(gID);
                     break;
             }
+            ReloadGD();
+        }
+
+        private void ReloadGD()
+        {
+            var myDetail = from d in Admin.con.Grunddaten where d.Modul == ModulID select d;
+            GdGrid.ItemsSource = myDetail.ToList();
         }
 
         private void Del_Butten_Click(object sender, RoutedEventArgs e)

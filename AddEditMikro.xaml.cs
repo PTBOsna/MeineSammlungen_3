@@ -42,8 +42,7 @@ namespace MeineSammlungen_3
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        { //letzte laufende Nr holen für Grunddaten neu
-            lfNr = (from x in Admin.con.Grunddaten select x.LfdNr).Max();
+        { 
             //Ablage einbinden
             var abl = from a in Admin.con.Ablage select a;
             //cbAblage.DataContext = abl;
@@ -92,7 +91,7 @@ namespace MeineSammlungen_3
                     // Titel anzeigen
                     this.Title = "Details zu Objekt '" + item.g.Nr.Trim() + "' ansehen/ändern";
                 }
-          
+
             }
         }
 
@@ -109,6 +108,8 @@ namespace MeineSammlungen_3
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
 
         {
+            //letzte laufende Nr holen für Grunddaten neu
+            lfNr = (from x in Admin.con.Grunddaten select x.LfdNr).Max();
             Grunddaten gd = new Grunddaten();
             ModulMikro mm = new ModulMikro();
 
@@ -117,8 +118,20 @@ namespace MeineSammlungen_3
             gd.Detail = DetailText.Text.Trim();
             gd.Modul = myModID;
             gd.Bemerkung = BemerkungText.Text.Trim();
-            gd.LfdNr = lfNr;
-            gd.Nr = Nr.Trim();
+            if (istNeu == 1)
+            {
+                gd.LfdNr = lfNr + 1;
+                gd.Nr = myModID.ToString() + "-" + (lfNr + 1).ToString().Trim();
+                gd.Erstellt = DateTime.Now;
+
+            }
+            else
+            {
+                gd.LfdNr = lfNr;
+                gd.Nr = Nr.Trim();
+                gd.Geaendert = DateTime.Now;
+            }
+
             gd.Ablageort_neu = ablageID;
             mm.Farbung = FarbeText.Text;
             mm.ID = myMID;
@@ -130,11 +143,11 @@ namespace MeineSammlungen_3
             mm.Schnittebene = SchnittText.Text.Trim();
             mm.Grunddaten_ID = myVarID;
 
-            if (istNeu==1)
+            if (istNeu == 1)
             {
-                gd.LfdNr = lfNr + 1;
-                gd.Erstellt = DateTime.Now;
-                gd.Modul = myModID;
+                //gd.LfdNr = lfNr + 1;
+                //gd.Erstellt = DateTime.Now;
+                //gd.Modul = myModID;
                 gd.ImgCount = 0; //Muss noch angepasst werden
                 gd.Ablageort_neu = 1; //muss noch angepasst werden
                 gd.Checked = false; //muss noch angepasst werden
@@ -150,12 +163,18 @@ namespace MeineSammlungen_3
                 Admin.EditGrunddaten(gd);
                 Admin.EditMikro(mm);
             }
-
+            if (istNeu==1)
+            {
+            MessageBox.Show("Datensatz als " + gd.Nr + " übernommen.");
+            }
+            else
+                MessageBox.Show("Datensatz " + gd.Nr + " geändert.");
+            DialogResult = false;
         }
 
         private void Save()
         {
-           
+
         }
 
         private void Btn_Img_new(object sender, RoutedEventArgs e)

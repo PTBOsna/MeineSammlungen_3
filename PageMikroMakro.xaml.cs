@@ -34,7 +34,7 @@ namespace MeineSammlungen_3
 
             foreach (var mMikro in currM)
             {
-                SchnittText.Text = mMikro.Schnittebene;
+                SchnittText.Text = mMikro.Schnittebene; 
                 SchnittartText.Text = mMikro.Schnittart;
                 FarbeText.Text = mMikro.Farbung;
                 HellText.Text = mMikro.Aufhellung;

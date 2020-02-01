@@ -56,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddEditExponate.xaml.cs">
+      <DependentUpon>AddEditExponate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddEditMikro.xaml.cs">
       <DependentUpon>AddEditMikro.xaml</DependentUpon>
     </Compile>
@@ -63,6 +66,10 @@
       <DependentUpon>PageExponate.xaml</DependentUpon>
     </Compile>
     <Compile Include="System\Windows\Forms.cs" />
+    <Page Include="AddEditExponate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddEditMikro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -94,7 +101,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModulGrunddaten.cs" />
+    <Compile Include="Admin.cs" />
     <Compile Include="PageMikroMakro.xaml.cs">
       <DependentUpon>PageMikroMakro.xaml</DependentUpon>
     </Compile>

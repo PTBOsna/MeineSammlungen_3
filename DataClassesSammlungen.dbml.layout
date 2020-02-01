@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataClassesSammlungen">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 13, 8.5" name="DataClassesSammlungen">
   <DataContextMoniker Name="/DataClassesSammlungenDataContext" />
   <nestedChildShapes>
     <classShape Id="98e9b8f4-a40d-4496-9278-9a507009286e" absoluteBounds="0.75, 0.75, 2, 3.3093082682291666">
@@ -50,6 +50,12 @@
       <DataClassMoniker Name="/DataClassesSammlungenDataContext/Mineralien" />
       <nestedChildShapes>
         <elementListCompartment Id="70c185a8-23fb-4b0c-a9b0-a59213381452" absoluteBounds="8.015, 3.335, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d2cb9eb8-e100-4474-a861-f561ee94a642" absoluteBounds="10.75, 2.875, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/DataClassesSammlungenDataContext/Settings" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3745231d-2db6-46b4-bfae-261ab50babb3" absoluteBounds="10.765, 3.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

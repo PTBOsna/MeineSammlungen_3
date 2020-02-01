@@ -29,6 +29,7 @@ namespace MeineSammlungen_3
         public MainWindow()
         {
             InitializeComponent();
+            Admin.GetSettings();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -95,6 +96,10 @@ namespace MeineSammlungen_3
                     PageModul.Content = new PageExponate(gID);
                     break;
             }
+            //Img-Liste füllen
+            PictureList selPicture = new PictureList(gID.ToString());
+
+            imgListBox.ItemsSource = selPicture;
         }
 
         private void PageModul_Navigated(object sender, NavigationEventArgs e)
@@ -151,6 +156,11 @@ namespace MeineSammlungen_3
         }
 
         private void Del_Butten_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ImgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

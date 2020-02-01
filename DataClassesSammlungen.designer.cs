@@ -48,6 +48,9 @@ namespace MeineSammlungen_3
     partial void InsertMineralien(Mineralien instance);
     partial void UpdateMineralien(Mineralien instance);
     partial void DeleteMineralien(Mineralien instance);
+    partial void InsertSettings(Settings instance);
+    partial void UpdateSettings(Settings instance);
+    partial void DeleteSettings(Settings instance);
     #endregion
 		
 		public DataClassesSammlungenDataContext() : 
@@ -125,6 +128,14 @@ namespace MeineSammlungen_3
 			get
 			{
 				return this.GetTable<Mineralien>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Settings> Settings
+		{
+			get
+			{
+				return this.GetTable<Settings>();
 			}
 		}
 	}
@@ -1550,6 +1561,92 @@ namespace MeineSammlungen_3
 					this._Zusammensetzung = value;
 					this.SendPropertyChanged("Zusammensetzung");
 					this.OnZusammensetzungChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Settings")]
+	public partial class Settings : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Bildpfad;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnBildpfadChanging(string value);
+    partial void OnBildpfadChanged();
+    #endregion
+		
+		public Settings()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bildpfad", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Bildpfad
+		{
+			get
+			{
+				return this._Bildpfad;
+			}
+			set
+			{
+				if ((this._Bildpfad != value))
+				{
+					this.OnBildpfadChanging(value);
+					this.SendPropertyChanging();
+					this._Bildpfad = value;
+					this.SendPropertyChanged("Bildpfad");
+					this.OnBildpfadChanged();
 				}
 			}
 		}

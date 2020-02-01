@@ -30,7 +30,8 @@ namespace MeineSammlungen_3
 
         private void ucPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            var currM = from m in Admin.con.ModulMikro where m.Grunddaten_ID == gdID select m;
+            DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+            var currM = from m in con.ModulMikro where m.Grunddaten_ID == gdID select m;
 
             foreach (var mMikro in currM)
             {

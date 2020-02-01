@@ -29,6 +29,7 @@ namespace MeineSammlungen_3
         string imgPath;
         Int32 lfNr;
         string Nr;
+           public DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public AddEditMikro(string _openArgs)
         {
             InitializeComponent();
@@ -42,9 +43,9 @@ namespace MeineSammlungen_3
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        { 
+        {
             //Ablage einbinden
-            var abl = from a in Admin.con.Ablage select a;
+            var abl = from a in con.Ablage select a;
             //cbAblage.DataContext = abl;
             cbAblage.ItemsSource = abl;
 
@@ -52,9 +53,9 @@ namespace MeineSammlungen_3
 
             if (istNeu != 1)
             {
-                var myDat = from m in Admin.con.ModulMikro
-                            from g in Admin.con.Grunddaten
-                            from a in Admin.con.Ablage
+                var myDat = from m in con.ModulMikro
+                            from g in con.Grunddaten
+                            from a in con.Ablage
                             where m.Grunddaten_ID == g.ID && g.ID == myVarID && g.Ablageort_neu == a.ID
                             select new { m, g, a };
                 //und anzeigen
@@ -97,7 +98,12 @@ namespace MeineSammlungen_3
 
         private void cbAblage_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-
+            var ab = from a in con.Ablage where a.ID == (Int32)cbAblage.SelectedValue select a;
+            foreach (var item in ab)
+            {
+                ablageID = item.ID;
+                AblageortText.Text = item.Ablageort;
+            }
         }
 
         private void imgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -109,7 +115,7 @@ namespace MeineSammlungen_3
 
         {
             //letzte laufende Nr holen für Grunddaten neu
-            lfNr = (from x in Admin.con.Grunddaten select x.LfdNr).Max();
+            lfNr = (from x in con.Grunddaten select x.LfdNr).Max();
             Grunddaten gd = new Grunddaten();
             ModulMikro mm = new ModulMikro();
 
@@ -133,6 +139,10 @@ namespace MeineSammlungen_3
             }
 
             gd.Ablageort_neu = ablageID;
+            if (ckbWeitereBearbeitung.IsChecked == true)
+            { gd.Checked = true; }
+            else
+                gd.Checked = false;
             mm.Farbung = FarbeText.Text;
             mm.ID = myMID;
             mm.Aufhellung = HellText.Text.Trim();
@@ -149,17 +159,17 @@ namespace MeineSammlungen_3
                 //gd.Erstellt = DateTime.Now;
                 //gd.Modul = myModID;
                 gd.ImgCount = 0; //Muss noch angepasst werden
-                gd.Ablageort_neu = 1; //muss noch angepasst werden
-                gd.Checked = false; //muss noch angepasst werden
+                gd.Ablageort_neu = ablageID; //muss noch angepasst werden
+                //gd.Checked = false; //muss noch angepasst werden
                 Admin.AddGrunddaten(gd);
-                int NewID = (from x in Admin.con.Grunddaten select x.ID).Max();
+                int NewID = (from x in con.Grunddaten select x.ID).Max();
                 mm.Grunddaten_ID = NewID;
                 Admin.AddMikro(mm);
 
             }
             else
             {
-
+                
                 Admin.EditGrunddaten(gd);
                 Admin.EditMikro(mm);
             }
@@ -169,7 +179,7 @@ namespace MeineSammlungen_3
             }
             else
                 MessageBox.Show("Datensatz " + gd.Nr + " geändert.");
-            DialogResult = false;
+            DialogResult = true;
         }
 
         private void Save()

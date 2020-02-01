@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MeineSammlungen_3
 {
-    class Admin
+    public static class Admin
     {
-        public static DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+        //public static DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         #region Grunddaten
         public static void AddGrunddaten(Grunddaten grunddaten)
         {

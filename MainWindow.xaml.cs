@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace MeineSammlungen_3
 {
-    
+
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
@@ -25,6 +25,7 @@ namespace MeineSammlungen_3
         Int32 ImgCount = 0; //Bildzähler
         Int32 gID = 0; //Grunddaten-ID
         Int32 ModulID = 0; //Modul-ID
+        public    DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public MainWindow()
         {
             InitializeComponent();
@@ -32,8 +33,7 @@ namespace MeineSammlungen_3
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
-            List<Module> modules = (from m in Admin.con.Module select m).ToList();
+            List<Module> modules = (from m in con.Module select m).ToList();
             ModulGrid.ItemsSource = modules;
 
 
@@ -47,14 +47,14 @@ namespace MeineSammlungen_3
                 return;
             }
             ModulID = selected.ID;
-            var myDetail = from d in Admin.con.Grunddaten where d.Modul == ModulID select d;
+            var myDetail = from d in con.Grunddaten where d.Modul == ModulID select d;
             GdGrid.ItemsSource = myDetail.ToList();
 
         }
 
         private void BtnAllesClick(object sender, RoutedEventArgs e)
         {
-            var myDetail = from d in Admin.con.Grunddaten select d;
+            var myDetail = from d in con.Grunddaten select d;
             GdGrid.ItemsSource = myDetail.ToList();
         }
 
@@ -66,7 +66,7 @@ namespace MeineSammlungen_3
                 return;
             }
             //Ablageort ermitteln
-            var abl = from a in Admin.con.Ablage where a.ID == sel.Ablageort_neu select a;
+            var abl = from a in con.Ablage where a.ID == sel.Ablageort_neu select a;
             foreach (var item in abl)
             {
                 AblageortText.Text = item.Ablageort;
@@ -88,7 +88,7 @@ namespace MeineSammlungen_3
             switch (sel.Modul)
             {
                 case 1:
-                   //MessageBox.Show("Case1");
+                    //MessageBox.Show("Case1");
                     PageModul.Content = new PageMikroMakro(gID);
                     break;
                 case 2:
@@ -126,18 +126,28 @@ namespace MeineSammlungen_3
                     string openArgs = gID + "#2"; //2 -> Datensatz editieren
                     AddEditMikro mmNeu = new AddEditMikro(openArgs);
                     mmNeu.ShowDialog();
+                    ReloadGD();
                     break;
                 case 2:
                     PageModul.Content = new PageExponate(gID);
                     break;
             }
-            ReloadGD();
         }
 
         private void ReloadGD()
         {
-            var myDetail = from d in Admin.con.Grunddaten where d.Modul == ModulID select d;
-            GdGrid.ItemsSource = myDetail.ToList();
+
+            using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
+            {
+                List<Grunddaten> fillList = (from g in conn.Grunddaten
+                                             where g.Modul == ModulID
+                                             select g).ToList();
+                //foreach (var el in myDetail)
+                //{
+                //    MessageBox.Show(el.Objekt + "-" + el.Checked.ToString());
+                //}
+                GdGrid.ItemsSource = fillList;
+            }
         }
 
         private void Del_Butten_Click(object sender, RoutedEventArgs e)
@@ -145,5 +155,5 @@ namespace MeineSammlungen_3
 
         }
     }
-    
+
 }

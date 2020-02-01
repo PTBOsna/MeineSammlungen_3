@@ -29,7 +29,8 @@ namespace MeineSammlungen_3
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var currEx = from ex in Admin.con.Exponate where ex.Grunddaten_ID == gdID select ex;
+            DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+            var currEx = from ex in con.Exponate where ex.Grunddaten_ID == gdID select ex;
             foreach (var ex in currEx)
             {
                 LandText.Text = ex.Fundstelle_Land;

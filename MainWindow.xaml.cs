@@ -37,8 +37,6 @@ namespace MeineSammlungen_3
         {
             List<Module> modules = (from m in con.Module select m).ToList();
             ModulGrid.ItemsSource = modules;
-
-
         }
 
         private void ModulGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -51,7 +49,6 @@ namespace MeineSammlungen_3
             ModulID = selected.ID;
             var myDetail = from d in con.Grunddaten where d.Modul == ModulID select d;
             GdGrid.ItemsSource = myDetail.ToList();
-
         }
 
         private void BtnAllesClick(object sender, RoutedEventArgs e)
@@ -62,6 +59,7 @@ namespace MeineSammlungen_3
 
         private void GdGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ImgDisplay.Source = null;
             Grunddaten sel = GdGrid.SelectedItem as Grunddaten;
             if (sel == null)
             {
@@ -183,33 +181,54 @@ namespace MeineSammlungen_3
             //Modul_Image.readExif.ShowEXIF(ImgPath);
             //ShowMetaDaten();
             // -> ToDo: ImgHandling
-            //ImgHandling.IPTCDaten iptc = new ImgHandling.IPTCDaten(ImgPath);
-            ////ImgHandling.IPTCDaten.myIPTC_Daten(currImg);
+            IPTCDaten iptc = new IPTCDaten(ImgPath);
+            ExifDaten exif = new ExifDaten(ImgPath); 
+            //ImgHandling.IPTCDaten.myIPTC_Daten(currImg);
 
-            //txtObject.Text = iptc.iObjekt;
-            //txtDetail.Text = iptc.iDeteil;
-            ////txtBemerkung.Text = iptc.iBemerkung;
-            //txtQuelle.Text = iptc.iQuelle;
-            //txtOrt.Text = iptc.iFundstelleOrt;
-            ////txtCountry.Text = iptc.iFundstelleCountry;
-            ////txtLand.Text = iptc.iFundstelleLand;
-            ////txtPosition.Text = iptc.iPostition;
-            ////txtErstellt.Text = iptc.iErstellt;
-            ////txtDErstellt.Text = iptc.iDigitalErstellt;
-            ////txtAutor.Text = iptc.iAutor;
-            ////txtCRight.Text = iptc.iCopyright;
-            ////txtHinweise.Text = iptc.iHinweise;
-            //txtStichworte.Text = iptc.iStichwortText;
-
-            ////Exif-Daten
-            //ImgHandling.EXIF.clearExif();
+            txtObject.Text = iptc.iObjekt;
+            txtDetail.Text = iptc.iDeteil;
+            //txtBemerkung.Text = iptc.iBemerkung;
+            txtQuelle.Text = iptc.iQuelle;
+            txtOrt.Text = iptc.iFundstelleOrt;
+            //txtCountry.Text = iptc.iFundstelleCountry;
+            //txtLand.Text = iptc.iFundstelleLand;
+            //txtPosition.Text = iptc.iPostition;
+            //txtErstellt.Text = iptc.iErstellt;
+            //txtDErstellt.Text = iptc.iDigitalErstellt;
+            //txtAutor.Text = iptc.iAutor;
+            //txtCRight.Text = iptc.iCopyright;
+            //txtHinweise.Text = iptc.iHinweise;
+            txtStichworte.Text = iptc.iStichwortText;
+           
+            //Exif-Daten
+            //ExifDaten.clearExif();
             //ImgHandling.EXIF.ReadEXIF(ImgPath);
-            //txtKamera.Text = ImgHandling.ExifDaten.Kamera;
-            //txtBlende.Text = ImgHandling.ExifDaten.Blende;
-            //txtBelichtung.Text = ImgHandling.ExifDaten.Belichtung;
-            //txtIso.Text = ImgHandling.ExifDaten.ISO;
-            //txtBrennweiste.Text = ImgHandling.ExifDaten.Brennweite;
-            //txtAufnahmeDat.Text = ImgHandling.ExifDaten.AufnahmeDat;
+            txtKamera.Text = exif.Kamera;
+            txtBlende.Text =exif.Blende;
+            txtBelichtung.Text = exif.Belichtung;
+            txtIso.Text = exif.ISO;
+            txtBrennweiste.Text = exif.Brennweite;
+            txtAufnahmeDat.Text = exif.AufnahmeDat;
+        }
+
+        private void Click_ExitMnu(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Click_SettingMnu(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_Ablage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_ImgToGD_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

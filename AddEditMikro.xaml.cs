@@ -31,7 +31,7 @@ namespace MeineSammlungen_3
         string imgPath;
         Int32 lfNr;
         string Nr;
-           public DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+        public DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public AddEditMikro(string _openArgs)
         {
             InitializeComponent();
@@ -94,7 +94,11 @@ namespace MeineSammlungen_3
                     // Titel anzeigen
                     this.Title = "Details zu Objekt '" + item.g.Nr.Trim() + "' ansehen/ändern";
                 }
-
+                if (myImgCount > 0)
+                {
+                   PictureList selPicture = new PictureList(myVarID.ToString());
+                    imgListBox.ItemsSource = selPicture;
+                }
             }
         }
 
@@ -110,13 +114,22 @@ namespace MeineSammlungen_3
 
         private void imgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            dynamic row = imgListBox.SelectedItem;
+            if (row == null)
+            {
+                //ImgDisplay.Source = null;
+                //readExif.ClearExit();
+                return;
+            }
+            //MessageBox.Show(row.Path);
+            imgPath = row.Path;
+            ShowMetaDaten(imgPath);
         }
 
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
 
         {
-           if( SaveAll()==true)
+            if (SaveAll() == true)
             {
                 if (istNeu == 1)
                 {
@@ -159,6 +172,7 @@ namespace MeineSammlungen_3
                 }
                 Nr = gd.Nr;
                 gd.Ablageort_neu = ablageID;
+                gd.ImgCount = myImgCount;
                 if (ckbWeitereBearbeitung.IsChecked == true)
                 { gd.Checked = true; }
                 else
@@ -181,7 +195,7 @@ namespace MeineSammlungen_3
                     gd.ImgCount = 0; //Muss noch angepasst werden
                     gd.Ablageort_neu = ablageID; //muss noch angepasst werden
                                                  //gd.Checked = false; //muss noch angepasst werden
-                    Admin.AddGrunddaten(gd);
+                    Admin. AddGrunddaten(gd);
                     int NewID = (from x in con.Grunddaten select x.ID).Max();
                     mm.Grunddaten_ID = NewID;
                     Admin.AddMikro(mm);
@@ -195,7 +209,7 @@ namespace MeineSammlungen_3
                 }
 
                 return true;
-              
+
             }
             catch (Exception ex)
             {
@@ -203,18 +217,18 @@ namespace MeineSammlungen_3
                 MessageBox.Show(ex.Message, "Fehler beim Speichern!");
                 return false;
             }
-           
-           
+
+
         }
 
-      
+
 
         private void Btn_Img_new(object sender, RoutedEventArgs e)
         {
             if (myImgCount == 0)
             { SaveAll(); }
             string curName = null;
-           OpenFileDialog ofd = new OpenFileDialog();
+            OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Bilder einfügen";
             ofd.Filter = "Image Files(*.JPG;|*.JPG| All files(*.*) | *.*";
             ofd.RestoreDirectory = true;
@@ -222,7 +236,6 @@ namespace MeineSammlungen_3
             {
                 //FilePath = ofd.FileName;
                 Admin.cName = System.IO.Path.GetFileName(ofd.FileName);
-                myImgCount += 1;
                 String _NewName = myVarID.ToString() + "#" + myImgCount + System.IO.Path.GetExtension(ofd.FileName);
                 string NewName = System.IO.Path.Combine(Admin.ImgPath, _NewName);
                 // System.Windows.Forms.MessageBox.Show(NewName);
@@ -232,6 +245,7 @@ namespace MeineSammlungen_3
                     curName = System.IO.Path.GetFileName(NewName);
                     PictureList selPicture = new PictureList(curName);
                     imgListBox.ItemsSource = selPicture;
+                    myImgCount += 1;
                     LblImgCount.Content = "Zugehörige Bilder: " + myImgCount.ToString();
 
                 }
@@ -242,10 +256,30 @@ namespace MeineSammlungen_3
                 }
                 string objNr = myModID.ToString() + "-" + myVarID.ToString();
                 string cImg = System.IO.Path.Combine(Admin.ImgPath, curName);
-                //ShowIPTC iptcchange = new ShowIPTC(cImg + "*" + objNr);
-                //iptcchange.ShowDialog();
-                //ShowMetaDaten(curName);
+                ShowMeta iptcchange = new ShowMeta(cImg + "*" + objNr);
+                iptcchange.ShowDialog();
+                ShowMetaDaten(curName);
             }
+        }
+
+        private void ShowMetaDaten(string curName)
+        {
+           IPTCDaten iptc = new IPTCDaten(curName);
+
+            ExifDaten exif = new ExifDaten(curName);
+
+            txtObject.Text = iptc.iObjekt;
+            txtDetail.Text = iptc.iDeteil;
+            txtQuelle.Text = iptc.iQuelle;
+            txtOrt.Text = iptc.iFundstelleOrt;
+            txtBemerkung.Text = iptc.iBemerkung;
+            txtStichworte.Text = iptc.iStichwortText;
+            txtKamera.Text = exif.Kamera;
+            txtBelichtung.Text = exif.Belichtung;
+            txtBlende.Text = exif.Blende;
+            txtBrennweite.Text = exif.Brennweite;
+            txtIso.Text = exif.ISO;
+            txtAufnahmeDat.Text = exif.AufnahmeDat;
         }
 
         private void Btn_DelImg(object sender, RoutedEventArgs e)
@@ -260,7 +294,14 @@ namespace MeineSammlungen_3
 
         private void Btn_ChangeIPTC_click(object sender, RoutedEventArgs e)
         {
-
+            if (string.IsNullOrEmpty(imgPath) == true)
+            {
+                MessageBox.Show("Bitte zunächst ein Bild auswählen!");
+                return;
+            }
+            //string objNr = myModID.ToString() + "-" + myVarID.ToString();
+            ShowMeta iptcchange = new ShowMeta(imgPath + "*" + myVarID.ToString().Trim() + "*" + Nr.Trim());
+            iptcchange.ShowDialog();
         }
     }
 }

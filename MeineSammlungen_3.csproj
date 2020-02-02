@@ -38,6 +38,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -62,8 +64,12 @@
     <Compile Include="AddEditMikro.xaml.cs">
       <DependentUpon>AddEditMikro.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MetaDaten.cs" />
     <Compile Include="PageExponate.xaml.cs">
       <DependentUpon>PageExponate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShowMeta.xaml.cs">
+      <DependentUpon>ShowMeta.xaml</DependentUpon>
     </Compile>
     <Compile Include="System\Windows\Forms.cs" />
     <Page Include="AddEditExponate.xaml">
@@ -96,6 +102,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageMikroMakro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowMeta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

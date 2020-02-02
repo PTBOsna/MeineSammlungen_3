@@ -51,6 +51,9 @@ namespace MeineSammlungen_3
     partial void InsertSettings(Settings instance);
     partial void UpdateSettings(Settings instance);
     partial void DeleteSettings(Settings instance);
+    partial void InsertBildtyp(Bildtyp instance);
+    partial void UpdateBildtyp(Bildtyp instance);
+    partial void DeleteBildtyp(Bildtyp instance);
     #endregion
 		
 		public DataClassesSammlungenDataContext() : 
@@ -136,6 +139,14 @@ namespace MeineSammlungen_3
 			get
 			{
 				return this.GetTable<Settings>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Bildtyp> Bildtyp
+		{
+			get
+			{
+				return this.GetTable<Bildtyp>();
 			}
 		}
 	}
@@ -1647,6 +1658,116 @@ namespace MeineSammlungen_3
 					this._Bildpfad = value;
 					this.SendPropertyChanged("Bildpfad");
 					this.OnBildpfadChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Bildtyp")]
+	public partial class Bildtyp : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Bildtyp1;
+		
+		private string _Beschreibung;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnBildtyp1Changing(string value);
+    partial void OnBildtyp1Changed();
+    partial void OnBeschreibungChanging(string value);
+    partial void OnBeschreibungChanged();
+    #endregion
+		
+		public Bildtyp()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Bildtyp", Storage="_Bildtyp1", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Bildtyp1
+		{
+			get
+			{
+				return this._Bildtyp1;
+			}
+			set
+			{
+				if ((this._Bildtyp1 != value))
+				{
+					this.OnBildtyp1Changing(value);
+					this.SendPropertyChanging();
+					this._Bildtyp1 = value;
+					this.SendPropertyChanged("Bildtyp1");
+					this.OnBildtyp1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beschreibung", DbType="NVarChar(150)")]
+		public string Beschreibung
+		{
+			get
+			{
+				return this._Beschreibung;
+			}
+			set
+			{
+				if ((this._Beschreibung != value))
+				{
+					this.OnBeschreibungChanging(value);
+					this.SendPropertyChanging();
+					this._Beschreibung = value;
+					this.SendPropertyChanged("Beschreibung");
+					this.OnBeschreibungChanged();
 				}
 			}
 		}

@@ -25,6 +25,7 @@ namespace MeineSammlungen_3
         Int32 ImgCount = 0; //Bildzähler
         Int32 gID = 0; //Grunddaten-ID
         Int32 ModulID = 0; //Modul-ID
+        private string ImgPath;
         public    DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public MainWindow()
         {
@@ -162,7 +163,53 @@ namespace MeineSammlungen_3
 
         private void ImgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            dynamic row = imgListBox.SelectedItem;
+            if (row == null)
+            {
+                //ImgDisplay.Source = null;
+                //readExif.ClearExit();
+                return;
+            }
+            //MessageBox.Show(row.Path);
+            ImgPath = row.Path;
 
+            BitmapImage myBitMap = new BitmapImage();
+            myBitMap.BeginInit();
+            myBitMap.CacheOption = BitmapCacheOption.OnLoad;
+            myBitMap.UriSource = new Uri(ImgPath);
+            myBitMap.EndInit();
+            ImgDisplay.Source = myBitMap;
+            //Modul_Image.readIPTC.ReadIPTC(ImgPath);
+            //Modul_Image.readExif.ShowEXIF(ImgPath);
+            //ShowMetaDaten();
+            // -> ToDo: ImgHandling
+            //ImgHandling.IPTCDaten iptc = new ImgHandling.IPTCDaten(ImgPath);
+            ////ImgHandling.IPTCDaten.myIPTC_Daten(currImg);
+
+            //txtObject.Text = iptc.iObjekt;
+            //txtDetail.Text = iptc.iDeteil;
+            ////txtBemerkung.Text = iptc.iBemerkung;
+            //txtQuelle.Text = iptc.iQuelle;
+            //txtOrt.Text = iptc.iFundstelleOrt;
+            ////txtCountry.Text = iptc.iFundstelleCountry;
+            ////txtLand.Text = iptc.iFundstelleLand;
+            ////txtPosition.Text = iptc.iPostition;
+            ////txtErstellt.Text = iptc.iErstellt;
+            ////txtDErstellt.Text = iptc.iDigitalErstellt;
+            ////txtAutor.Text = iptc.iAutor;
+            ////txtCRight.Text = iptc.iCopyright;
+            ////txtHinweise.Text = iptc.iHinweise;
+            //txtStichworte.Text = iptc.iStichwortText;
+
+            ////Exif-Daten
+            //ImgHandling.EXIF.clearExif();
+            //ImgHandling.EXIF.ReadEXIF(ImgPath);
+            //txtKamera.Text = ImgHandling.ExifDaten.Kamera;
+            //txtBlende.Text = ImgHandling.ExifDaten.Blende;
+            //txtBelichtung.Text = ImgHandling.ExifDaten.Belichtung;
+            //txtIso.Text = ImgHandling.ExifDaten.ISO;
+            //txtBrennweiste.Text = ImgHandling.ExifDaten.Brennweite;
+            //txtAufnahmeDat.Text = ImgHandling.ExifDaten.AufnahmeDat;
         }
     }
 

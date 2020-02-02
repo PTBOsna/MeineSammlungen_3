@@ -235,7 +235,8 @@ namespace MeineSammlungen_3
         }
         #endregion
         #region Settings
-                public static string ImgPath;
+        public static string ImgPath;
+        public static string cName; //Original Dateiname der übernommenen Bilder
 
         public static void GetSettings()
         {
@@ -261,6 +262,7 @@ namespace MeineSammlungen_3
 
     }
 
+   
     public class PictureList : ObservableCollection<Picture>
     {
         public PictureList(string myImges) //selPicture muss den Stamm des FileNmaens enthalten (z.B. Filename = 12#1.jpg, Stamm = 12)
@@ -338,5 +340,28 @@ namespace MeineSammlungen_3
             }
         }
         #endregion images
+   
+    }
+    #region Allgemeines
+    public class Allgemeines
+    {
+        
+        public static bool FileIsLocked(string strFullFileName)
+        {
+            bool blnReturn = false;
+            System.IO.FileStream fs;
+            try
+            {
+                fs = File.Open(strFullFileName, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
+                fs.Close();
+            }
+            catch (System.IO.IOException ex)
+            {
+                blnReturn = true;
+            }
+            return blnReturn;
+        }
+
+        #endregion
     }
 }

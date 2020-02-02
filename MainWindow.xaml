@@ -11,6 +11,8 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -21,10 +23,10 @@
         <StackPanel Grid.Row="0" Grid.Column="0" Background="LightSteelBlue">
             <Button Content="Alle Module" Name="btAlleModule" Click="BtnAllesClick" />
             <DataGrid Grid.Row="1" Name="ModulGrid" SelectionChanged="ModulGrid_SelectionChanged" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Modul" Binding="{Binding Path=Modul}"/>
-            </DataGrid.Columns> 
-        </DataGrid>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Modul" Binding="{Binding Path=Modul}"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
         <DataGrid Grid.Row="2" x:Name="GdGrid" AutoGenerateColumns="False" SelectionChanged="GdGrid_SelectionChanged">
             <DataGrid.Columns>
@@ -88,11 +90,60 @@
                 </Grid>
             </ScrollViewer>
         </Border>
+        <!--Img-Grid-->
+        <!--<Grid Grid.Column="4" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>-->
+            <!--Img-Anzeige-->
+            <Border Margin="5" Grid.Column="4" Grid.Row="1" BorderBrush="DimGray" BorderThickness="1">
+                <ScrollViewer x:Name="ShowImg" Grid.Row="0" Margin="5">
+                    <Image x:Name="ImgDisplay" Width="Auto" Margin="5"/>
+                </ScrollViewer>
+            </Border>
+
+        <!--</Grid>-->
+        <!--Metadaten anzeigen-->
+        <Grid Grid.Row="2" Grid.Column="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <Label Content="Objekt"/>
+                <Label Content="Detail"/>
+                <Label Content="Quelle"/>
+                <Label Content="Ort"/>
+                <Label Content="Stichworte"/>
+                <Label Content="Kamera"/>
+                <Label Content="Blende"/>
+                <Label Content="Belichtung"/>
+                <Label Content="ISO"/>
+                <Label Content="Brennweite"/>
+                <Label Content="Aufnahmedatum"/>
+
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <TextBlock Margin="0 5 0 5" x:Name="txtObject"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtDetail"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtQuelle"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtOrt"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtStichworte" TextWrapping="Wrap"/>
+
+                <TextBlock Margin="0 5 0 5" x:Name="txtKamera"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtBlende"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtBelichtung"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtIso"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtBrennweiste"/>
+                <TextBlock Margin="0 5 0 5" x:Name="txtAufnahmeDat"/>
+            </StackPanel>
+        </Grid>
         <Button Grid.Column="0" Grid.Row="3" Content="Neu" Name="BtnAddDetail" Click="BtnAddDetail_Click"/>
         <UniformGrid Grid.Row="3" Grid.Column="1" Columns="2">
             <Button Content="Daten ansehen/ändern" Name="MyButton" Click="Button_edit_Click"/>
             <Button  Content="Datensatz löschen" Name="DelButton" Click="Del_Butten_Click"/>
         </UniformGrid>
-        
+
     </Grid>
 </Window>

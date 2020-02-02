@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -114,82 +116,136 @@ namespace MeineSammlungen_3
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
 
         {
+           if( SaveAll()==true)
+            {
+                if (istNeu == 1)
+                {
+                    MessageBox.Show("Datensatz als " + Nr + " übernommen.");
+                }
+                else
+                    MessageBox.Show("Datensatz " + Nr + " geändert.");
+                DialogResult = true;
+            }
+            return;
+        }
+
+        private bool SaveAll()
+        {
             //letzte laufende Nr holen für Grunddaten neu
             lfNr = (from x in con.Grunddaten select x.LfdNr).Max();
-            Grunddaten gd = new Grunddaten();
-            ModulMikro mm = new ModulMikro();
 
-            gd.ID = myVarID;
-            gd.Objekt = ObjektText.Text.Trim();
-            gd.Detail = DetailText.Text.Trim();
-            gd.Modul = myModID;
-            gd.Bemerkung = BemerkungText.Text.Trim();
-            if (istNeu == 1)
+            try
             {
-                gd.LfdNr = lfNr + 1;
-                gd.Nr = myModID.ToString() + "-" + (lfNr + 1).ToString().Trim();
-                gd.Erstellt = DateTime.Now;
+                Grunddaten gd = new Grunddaten();
+                ModulMikro mm = new ModulMikro();
 
-            }
-            else
-            {
-                gd.LfdNr = lfNr;
-                gd.Nr = Nr.Trim();
-                gd.Geaendert = DateTime.Now;
-            }
+                gd.ID = myVarID;
+                gd.Objekt = ObjektText.Text.Trim();
+                gd.Detail = DetailText.Text.Trim();
+                gd.Modul = myModID;
+                gd.Bemerkung = BemerkungText.Text.Trim();
+                if (istNeu == 1)
+                {
+                    gd.LfdNr = lfNr + 1;
+                    gd.Nr = myModID.ToString() + "-" + (lfNr + 1).ToString().Trim();
+                    gd.Erstellt = DateTime.Now;
 
-            gd.Ablageort_neu = ablageID;
-            if (ckbWeitereBearbeitung.IsChecked == true)
-            { gd.Checked = true; }
-            else
-                gd.Checked = false;
-            mm.Farbung = FarbeText.Text;
-            mm.ID = myMID;
-            mm.Aufhellung = HellText.Text.Trim();
-            mm.Einschluss = EinschlussText.Text.Trim();
-            mm.Fixierung = FixierungText.Text.Trim();
-            mm.Hineise = HinweiseText.Text.Trim();
-            mm.Schnittart = SchnittartText.Text.Trim();
-            mm.Schnittebene = SchnittText.Text.Trim();
-            mm.Grunddaten_ID = myVarID;
+                }
+                else
+                {
+                    gd.LfdNr = lfNr;
+                    gd.Nr = Nr.Trim();
+                    gd.Geaendert = DateTime.Now;
+                }
+                Nr = gd.Nr;
+                gd.Ablageort_neu = ablageID;
+                if (ckbWeitereBearbeitung.IsChecked == true)
+                { gd.Checked = true; }
+                else
+                    gd.Checked = false;
+                mm.Farbung = FarbeText.Text;
+                mm.ID = myMID;
+                mm.Aufhellung = HellText.Text.Trim();
+                mm.Einschluss = EinschlussText.Text.Trim();
+                mm.Fixierung = FixierungText.Text.Trim();
+                mm.Hineise = HinweiseText.Text.Trim();
+                mm.Schnittart = SchnittartText.Text.Trim();
+                mm.Schnittebene = SchnittText.Text.Trim();
+                mm.Grunddaten_ID = myVarID;
 
-            if (istNeu == 1)
-            {
-                //gd.LfdNr = lfNr + 1;
-                //gd.Erstellt = DateTime.Now;
-                //gd.Modul = myModID;
-                gd.ImgCount = 0; //Muss noch angepasst werden
-                gd.Ablageort_neu = ablageID; //muss noch angepasst werden
-                //gd.Checked = false; //muss noch angepasst werden
-                Admin.AddGrunddaten(gd);
-                int NewID = (from x in con.Grunddaten select x.ID).Max();
-                mm.Grunddaten_ID = NewID;
-                Admin.AddMikro(mm);
+                if (istNeu == 1)
+                {
+                    //gd.LfdNr = lfNr + 1;
+                    //gd.Erstellt = DateTime.Now;
+                    //gd.Modul = myModID;
+                    gd.ImgCount = 0; //Muss noch angepasst werden
+                    gd.Ablageort_neu = ablageID; //muss noch angepasst werden
+                                                 //gd.Checked = false; //muss noch angepasst werden
+                    Admin.AddGrunddaten(gd);
+                    int NewID = (from x in con.Grunddaten select x.ID).Max();
+                    mm.Grunddaten_ID = NewID;
+                    Admin.AddMikro(mm);
 
+                }
+                else
+                {
+
+                    Admin.EditGrunddaten(gd);
+                    Admin.EditMikro(mm);
+                }
+
+                return true;
+              
             }
-            else
+            catch (Exception ex)
             {
-                
-                Admin.EditGrunddaten(gd);
-                Admin.EditMikro(mm);
+
+                MessageBox.Show(ex.Message, "Fehler beim Speichern!");
+                return false;
             }
-            if (istNeu==1)
-            {
-            MessageBox.Show("Datensatz als " + gd.Nr + " übernommen.");
-            }
-            else
-                MessageBox.Show("Datensatz " + gd.Nr + " geändert.");
-            DialogResult = true;
+           
+           
         }
 
-        private void Save()
-        {
-
-        }
+      
 
         private void Btn_Img_new(object sender, RoutedEventArgs e)
         {
+            if (myImgCount == 0)
+            { SaveAll(); }
+            string curName = null;
+           OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Bilder einfügen";
+            ofd.Filter = "Image Files(*.JPG;|*.JPG| All files(*.*) | *.*";
+            ofd.RestoreDirectory = true;
+            if (ofd.ShowDialog() == true)
+            {
+                //FilePath = ofd.FileName;
+                Admin.cName = System.IO.Path.GetFileName(ofd.FileName);
+                myImgCount += 1;
+                String _NewName = myVarID.ToString() + "#" + myImgCount + System.IO.Path.GetExtension(ofd.FileName);
+                string NewName = System.IO.Path.Combine(Admin.ImgPath, _NewName);
+                // System.Windows.Forms.MessageBox.Show(NewName);
+                try
+                {
+                    File.Copy(ofd.FileName, NewName);
+                    curName = System.IO.Path.GetFileName(NewName);
+                    PictureList selPicture = new PictureList(curName);
+                    imgListBox.ItemsSource = selPicture;
+                    LblImgCount.Content = "Zugehörige Bilder: " + myImgCount.ToString();
 
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Bild bereits vorhaden!" + Environment.NewLine + ex.Message);
+                }
+                string objNr = myModID.ToString() + "-" + myVarID.ToString();
+                string cImg = System.IO.Path.Combine(Admin.ImgPath, curName);
+                //ShowIPTC iptcchange = new ShowIPTC(cImg + "*" + objNr);
+                //iptcchange.ShowDialog();
+                //ShowMetaDaten(curName);
+            }
         }
 
         private void Btn_DelImg(object sender, RoutedEventArgs e)
@@ -199,7 +255,7 @@ namespace MeineSammlungen_3
 
         private void Btn_Return_click(object sender, RoutedEventArgs e)
         {
-
+            DialogResult = false;
         }
 
         private void Btn_ChangeIPTC_click(object sender, RoutedEventArgs e)

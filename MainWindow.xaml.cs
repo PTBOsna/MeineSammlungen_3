@@ -66,11 +66,11 @@ namespace MeineSammlungen_3
                 return;
             }
             //Ablageort ermitteln
-            var abl = from a in con.Ablage where a.ID == sel.Ablageort_neu select a;
-            foreach (var item in abl)
-            {
-                AblageortText.Text = item.Ablageort;
-            }
+            var abl = (from a in con.Ablage where a.ID == sel.Ablageort_neu select a).FirstOrDefault();
+            //foreach (var item in abl)
+            //{
+                AblageortText.Text = abl.Ablageort;
+            //}
             lblObjektNr.Content = "Objekt Nr.: " + sel.Nr;
             ObjektText.Text = sel.Objekt;
             DetailText.Text = sel.Detail;

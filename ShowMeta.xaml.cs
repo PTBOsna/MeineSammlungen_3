@@ -23,6 +23,7 @@ namespace MeineSammlungen_3
         Int32 gdID;
         string currImg;
         string cTitel;
+        IPTCDaten iptc;
         DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public ShowMeta(string _openargs)
         {
@@ -38,7 +39,7 @@ namespace MeineSammlungen_3
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             this.Title = "Metadaten für Objekt-Nr " + cTitel;
-            IPTCDaten iptc = new IPTCDaten(currImg);
+            iptc = new IPTCDaten(currImg);
             txtObject.Text = iptc.iObjekt;
             txtDetail.Text = iptc.iDeteil;
             txtBemerkung.Text = iptc.iBemerkung;
@@ -54,7 +55,7 @@ namespace MeineSammlungen_3
             txtCRight.Text = iptc.iCopyright;
             txtHinweise.Text = iptc.iHinweise;
             txtStichworte.Text = iptc.iStichwortText;
-            ShowListBox(iptc);
+            //ShowListBox(iptc);
             BitmapImage myBitMap = new BitmapImage();
             myBitMap.BeginInit();
             myBitMap.CacheOption = BitmapCacheOption.OnLoad;
@@ -73,7 +74,7 @@ namespace MeineSammlungen_3
             txtLong.Content = "Longitude (Breite): " + exif.Longitude;
             txtLongDez.Content = "Longitude " + exif.LongitudeDez;
             txtAlt.Content = exif.Altitude;
-
+            ShowListBox();
             //Quellenliste laden und zuweisen
 
             var quellen = from q in con.Bildtyp orderby q.Bildtyp1 select q.Bildtyp1;
@@ -81,7 +82,7 @@ namespace MeineSammlungen_3
             cbQuelle.ItemsSource = quellen.ToList();
         }
 
-        private void ShowListBox(IPTCDaten iptc)
+        private void ShowListBox()
         {
             if (iptc.iStichworte != null)
             {
@@ -103,17 +104,59 @@ namespace MeineSammlungen_3
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            if (string.IsNullOrEmpty(txtAddStichworte.Text))
+            {
+                MessageBox.Show("Bitte erst ein neues Stichwort eingeben!");
+                return;
+            }
+            if (iptc.iStichworte == null)
+            {
+                List<string> lst = new List<string>();
+                lst.Add(txtAddStichworte.Text);
+                iptc.iStichworte = lst.ToList();
+            }
+            else
+                iptc.iStichworte.Add(txtAddStichworte.Text);
+            txtAddStichworte.Text = null;
+            ShowListBox();
         }
 
         private void Button_Del_Click(object sender, RoutedEventArgs e)
         {
 
+            if (listStichwort.SelectedIndex == -1)
+            {
+                MessageBox.Show("Bitte erst ein Stichwort auswählen!");
+                return;
+            }
+            string lbItem = listStichwort.SelectedItem.ToString();
+
+            //int lbIndex = listStichwort.SelectedIndex;
+            //System.Windows.Forms.MessageBox.Show("Index " + lbIndex.ToString() + " - Item " + lbItem);
+            iptc.iStichworte.Remove(lbItem);
+            txtStichworte.Text = "";
+            ShowListBox();
+            if (this.listStichwort.Items.Count > 0)
+            {
+
+                List<string> lst = new List<string>();
+                foreach (var el in listStichwort.Items)
+                {
+                    lst.Add(el.ToString());
+
+                }
+                txtStichworte.Text = String.Join(String.Empty, lst.ToArray());
+                //    lst.Add(listStichwort.Items.
+                iptc.iStichworte = lst.ToList();
+
+            }
         }
 
         private void btn_ToIptc_clilck(object sender, RoutedEventArgs e)
         {
-
+            {
+                txtPosition.Text = txtLongDez.Content + "\r\n" + txtLatDez.Content + "\r\n" + txtAlt.Content;
+            }
         }
 
         private void BtAddGDClick(object sender, RoutedEventArgs e)
@@ -123,15 +166,15 @@ namespace MeineSammlungen_3
             { return; }
             if (gdID != 0)
             {
-                var gdat = from g in con.Grunddaten where g.ID == gdID select g;
+                var gdat = (from g in con.Grunddaten where g.ID == gdID select g).FirstOrDefault();
 
-                foreach (var gd in gdat)
-                {
-                    txtObject.Text = gd.Objekt;
-                    txtDetail.Text = gd.Detail;
-                    txtBemerkung.Text = gd.Bemerkung;
-                    txtHinweise.Text = "In DB als Objekt Nr. '" + gd.Nr.Trim() + "' aufgenommen.";
-                }
+                //foreach (var gd in gdat)
+                //{
+                    txtObject.Text = gdat.Objekt;
+                    txtDetail.Text = gdat.Detail;
+                    txtBemerkung.Text = gdat.Bemerkung;
+                    txtHinweise.Text = "In DB als Objekt Nr. '" + gdat.Nr.Trim() + "' aufgenommen.";
+                //}
 
                 txtCRight.Text = "© PBBerlin";
                 txtAutor.Text = "PTBBerlin";
@@ -141,7 +184,7 @@ namespace MeineSammlungen_3
 
         private void BtSaveClick(object sender, RoutedEventArgs e)
         {
-            IPTCDaten iptc = new IPTCDaten(currImg);
+             //iptc = new IPTCDaten(currImg);
             if (string.IsNullOrEmpty(txtHinweise.Text) == true)
             {
                 txtHinweise.Text = txtHinweise.Text = "In DB als Objekt Nr. '" + cTitel + "' aufgenommen.";

@@ -108,12 +108,14 @@ namespace MeineSammlungen_3
 
         private void cbAblage_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-            var ab = from a in con.Ablage where a.ID == (Int32)cbAblage.SelectedValue select a;
-            foreach (var item in ab)
-            {
-                ablageID = item.ID;
-                AblageortText.Text = item.Ablageort;
-            }
+            var ab = (from a in con.Ablage where a.ID == (Int32)cbAblage.SelectedValue select a).First();
+            ablageID = ab.ID;
+            AblageortText.Text = ab.Ablageort;
+            //foreach (var item in ab)
+            //{
+            //    ablageID = item.ID;
+            //    AblageortText.Text = item.Ablageort;
+            //}
         }
 
         private void imgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -312,7 +314,22 @@ namespace MeineSammlungen_3
 
         private void Btn_DelImg(object sender, RoutedEventArgs e)
         {
-
+            string fileName = System.IO.Path.GetFileName(imgPath);
+            if (PictureList.delImg.ImgDel(fileName) == true)
+            {
+                MessageBox.Show("Bild wurde entfernt");
+                myImgCount = myImgCount - 1;
+                LblImgCount.Content = "Zugehörige Bilder: " + myImgCount.ToString();
+                var currGd = (from gd in con.Grunddaten where gd.ID == myVarID select gd.ImgCount).First();
+                currGd = myImgCount;
+                con.SubmitChanges();
+                //imgListBox.Items.Clear();
+                //if (myImgCount > 0)
+                {
+                    PictureList selPicture = new PictureList(myVarID.ToString());
+                    imgListBox.ItemsSource = selPicture;
+                }
+            }
         }
 
         private void Btn_Return_click(object sender, RoutedEventArgs e)
@@ -330,6 +347,7 @@ namespace MeineSammlungen_3
             //string objNr = myModID.ToString() + "-" + myVarID.ToString();
             ShowMeta iptcchange = new ShowMeta(imgPath + "*" + myVarID.ToString().Trim() + "*" + Nr.Trim());
             iptcchange.ShowDialog();
+            ShowMetaDaten(imgPath);
         }
     }
 }

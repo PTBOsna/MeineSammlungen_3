@@ -41,7 +41,11 @@ namespace MeineSammlungen_3
             myVarID = Int32.Parse(strlist[0]);
             istNeu = Int32.Parse(strlist[1]);
             if (istNeu == 1)
-            { myModID = myVarID; }
+            {
+                myModID = myVarID;
+                //lfNr = (from x in con.Grunddaten select x.LfdNr).Max();
+                lfNr = (from x in con.Grunddaten select x.LfdNr).Max() + 1;
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -96,7 +100,7 @@ namespace MeineSammlungen_3
                 }
                 if (myImgCount > 0)
                 {
-                   PictureList selPicture = new PictureList(myVarID.ToString());
+                    PictureList selPicture = new PictureList(myVarID.ToString());
                     imgListBox.ItemsSource = selPicture;
                 }
             }
@@ -129,23 +133,35 @@ namespace MeineSammlungen_3
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
 
         {
-            if (SaveAll() == true)
+            if (ablageID == 0)
             {
-                if (istNeu == 1)
-                {
-                    MessageBox.Show("Datensatz als " + Nr + " übernommen.");
-                }
-                else
-                    MessageBox.Show("Datensatz " + Nr + " geändert.");
-                DialogResult = true;
+                MessageBox.Show("Bitte Ablage auswählen");
             }
-            return;
+            else if (string.IsNullOrEmpty(ObjektText.Text) == true)
+            {
+                MessageBox.Show("Bitte einen Objektnamen einfügen!");
+                return;
+            }
+            else
+            {
+                if (SaveAll() == true)
+                {
+                    if (istNeu == 1)
+                    {
+                        MessageBox.Show("Datensatz als " + Nr + " übernommen.");
+                    }
+                    else
+                        MessageBox.Show("Datensatz " + Nr + " geändert.");
+                    DialogResult = true;
+                }
+                return;
+            }
+
         }
 
         private bool SaveAll()
         {
-            //letzte laufende Nr holen für Grunddaten neu
-            lfNr = (from x in con.Grunddaten select x.LfdNr).Max();
+
 
             try
             {
@@ -159,8 +175,9 @@ namespace MeineSammlungen_3
                 gd.Bemerkung = BemerkungText.Text.Trim();
                 if (istNeu == 1)
                 {
-                    gd.LfdNr = lfNr + 1;
-                    gd.Nr = myModID.ToString() + "-" + (lfNr + 1).ToString().Trim();
+                    //neue LfdNr
+                    gd.LfdNr = lfNr;
+                    gd.Nr = myModID.ToString() + "-" + lfNr.ToString().Trim();
                     gd.Erstellt = DateTime.Now;
 
                 }
@@ -195,9 +212,11 @@ namespace MeineSammlungen_3
                     gd.ImgCount = 0; //Muss noch angepasst werden
                     gd.Ablageort_neu = ablageID; //muss noch angepasst werden
                                                  //gd.Checked = false; //muss noch angepasst werden
-                    Admin. AddGrunddaten(gd);
-                    int NewID = (from x in con.Grunddaten select x.ID).Max();
-                    mm.Grunddaten_ID = NewID;
+                    Admin.AddGrunddaten(gd);
+                    // die Neue GD-ID und MM-ID holen und  myVarID/myMID damit belegen 
+                    myVarID = (from x in con.Grunddaten select x.ID).Max();
+                    myMID = (from x in con.ModulMikro select x.ID).Max();
+                    mm.Grunddaten_ID = myVarID;
                     Admin.AddMikro(mm);
 
                 }
@@ -225,8 +244,9 @@ namespace MeineSammlungen_3
 
         private void Btn_Img_new(object sender, RoutedEventArgs e)
         {
-            if (myImgCount == 0)
+            if (istNeu == 1)
             { SaveAll(); }
+            istNeu = 2; //Datensatz ist jetzt nicht mehr neu
             string curName = null;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Bilder einfügen";
@@ -253,18 +273,26 @@ namespace MeineSammlungen_3
                 {
 
                     MessageBox.Show("Bild bereits vorhaden!" + Environment.NewLine + ex.Message);
+                    return;
                 }
                 string objNr = myModID.ToString() + "-" + myVarID.ToString();
                 string cImg = System.IO.Path.Combine(Admin.ImgPath, curName);
-                ShowMeta iptcchange = new ShowMeta(cImg + "*" + objNr);
+
+                ShowMeta iptcchange = new ShowMeta(cImg + "*" + myVarID.ToString().Trim() + "*" + Nr.Trim());
                 iptcchange.ShowDialog();
-                ShowMetaDaten(curName);
+                //ShowMetaDaten(curName);
+                DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+                var currGd = (from gd in con.Grunddaten where gd.ID == myVarID select gd.ImgCount).First();
+                currGd = myImgCount;
+                con.SubmitChanges();
+
+                //Speichern, um ImgCount zu aktualisieren
             }
         }
 
         private void ShowMetaDaten(string curName)
         {
-           IPTCDaten iptc = new IPTCDaten(curName);
+            IPTCDaten iptc = new IPTCDaten(curName);
 
             ExifDaten exif = new ExifDaten(curName);
 

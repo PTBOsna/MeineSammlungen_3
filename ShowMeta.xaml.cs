@@ -130,17 +130,68 @@ namespace MeineSammlungen_3
                     txtObject.Text = gd.Objekt;
                     txtDetail.Text = gd.Detail;
                     txtBemerkung.Text = gd.Bemerkung;
-                    txtHinweise.Text = "In DB als Objekt Nr. '" + gd.Nr + "' aufgenommen.";
+                    txtHinweise.Text = "In DB als Objekt Nr. '" + gd.Nr.Trim() + "' aufgenommen.";
                 }
 
                 txtCRight.Text = "© PBBerlin";
                 txtAutor.Text = "PTBBerlin";
-                txtSpezial.Text = Admin.cName;
+                txtSpezial.Text = Admin.cName; //Enthält den Originalnamen des ImgFiles
             }
         }
 
         private void BtSaveClick(object sender, RoutedEventArgs e)
         {
+            IPTCDaten iptc = new IPTCDaten(currImg);
+            if (string.IsNullOrEmpty(txtHinweise.Text) == true)
+            {
+                txtHinweise.Text = txtHinweise.Text = "In DB als Objekt Nr. '" + cTitel + "' aufgenommen.";
+            }
+            iptc.iObjekt = txtObject.Text;
+            iptc.iDeteil = txtDetail.Text;
+            iptc.iBemerkung = txtBemerkung.Text;
+            iptc.iQuelle = txtQuelle.Text;
+            iptc.iSpezial = txtSpezial.Text;
+            iptc.iFundstelleOrt = txtOrt.Text;
+            iptc.iFundstelleCountry = txtCountry.Text;
+            iptc.iFundstelleLand = txtLand.Text;
+            iptc.iPostition = txtPosition.Text;
+            if (string.IsNullOrEmpty(txtErstellt.Text) == false)
+            {
+                try
+                {
+                    DateTime da = DateTime.Parse(txtErstellt.Text);
+                    iptc.iErstellt = da.ToString("yyyyMMdd", System.Globalization.CultureInfo.GetCultureInfo("de-DE"));
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Bitte Datum manuell eintragen!", "Feld 'Erstellt' enthält falsches Datumsformat!");
+                }
+            }
+            if (string.IsNullOrEmpty(txtDErstellt.Text) == false)
+            {
+                try
+                {
+                    DateTime oDate = DateTime.Parse(txtDErstellt.Text);
+                    iptc.iDigitalErstellt = oDate.ToString("yyyyMMdd", System.Globalization.CultureInfo.GetCultureInfo("de-DE"));
+
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Bitte Datum manuell eintragen!", "Feld 'Digital erstellt' enthält falsches Datumsformat!");
+                }
+            }
+            iptc.iDigitalErstellt = txtDErstellt.Text;
+            iptc.iAutor = txtAutor.Text;
+            iptc.iCopyright = txtCountry.Text;
+            iptc.iHinweise = txtHinweise.Text;
+            iptc.iStichworte = iptc.iStichworte;
+            // ImgHandling.myIPTCDaten.iCopyright = txtCountry.Text;
+
+            iptc.WriteIPTC(currImg);
+            MessageBox.Show("Daten übernommen");
+            DialogResult = true;
 
         }
 

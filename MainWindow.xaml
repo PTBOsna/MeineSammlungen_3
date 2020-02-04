@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeineSammlungen_3"
         mc:Ignorable="d"
-        Title="MainWindow" Height="850" Width="1200" Loaded="Window_Loaded">
+        Title="MainWindow" Height="1000" Width="1500" Loaded="Window_Loaded" WindowState="Maximized">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="DimGray" />
@@ -77,7 +77,7 @@
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="45"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0" Background="LightSteelBlue">
+            <StackPanel Grid.Row="1" Grid.Column="0" Background="LightSteelBlue">
                 <Button Content="Alle Module" Name="btAlleModule" Click="BtnAllesClick" />
                 <DataGrid Grid.Row="1" Name="ModulGrid" SelectionChanged="ModulGrid_SelectionChanged" AutoGenerateColumns="False">
                     <DataGrid.Columns>
@@ -129,11 +129,12 @@
                         <!--<Grid.Resources>
                             <local:PictureList x:Key="pictureList" />
                         </Grid.Resources>-->
-                        <ListBox x:Name="imgListBox" SelectionChanged="ImgListBox_SelectionChanged" >
+                        <ListBox x:Name="imgListBox" 
+                                SelectionChanged="ImgListBox_SelectionChanged" >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical" Margin="10,10,10,10" >
-                                        <Image Source="{Binding Path=BitmapImage}" Width="100" />
+                                        <Image Source="{Binding Path=BitmapImage}" Width="150" />
                                         <StackPanel Margin="10,0,0,0">
                                             <TextBlock Text="{Binding Path=Name}"/>
                                             <!--<TextBlock Text="{Binding Path=FileType}"/>-->
@@ -154,56 +155,71 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>-->
             <!--Img-Anzeige-->
-            <Border Margin="5" Grid.Column="3" Grid.Row="0" 
-                    Grid.ColumnSpan="2" Grid.RowSpan="2"
+            <Border Margin="5" Grid.Column="4" Grid.Row="2" 
+                   
                     BorderBrush="DimGray" BorderThickness="1">
-                <ScrollViewer x:Name="ShowImg" Grid.Row="0" Margin="5">
+                <ScrollViewer x:Name="ShowImg" Grid.Row="2" Margin="5">
                     <Image x:Name="ImgDisplay" Width="Auto" Margin="5"/>
                 </ScrollViewer>
             </Border>
 
-            <!--</Grid>-->
-            <!--Metadaten anzeigen-->
-            <Grid Grid.Row="2" Grid.Column="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <Label Content="Objekt"/>
-                    <Label Content="Detail"/>
-                    <Label Content="Quelle"/>
-                    <Label Content="Ort"/>
-                    <Label Content="Stichworte"/>
-                    <Label Content="Kamera"/>
-                    <Label Content="Blende"/>
-                    <Label Content="Belichtung"/>
-                    <Label Content="ISO"/>
-                    <Label Content="Brennweite"/>
-                    <Label Content="Aufnahmedatum"/>
+        <!--</Grid>-->
+        <!--Metadaten anzeigen-->
+            
+                <Border Margin="5" Grid.Row="1" Grid.Column="4" BorderBrush="DimGray" BorderThickness="1">
+                 
+                <Grid Grid.Row="1" Grid.Column="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label Content="Objekt"/>
+                        <Label Content="Detail"/>
+                        <Label Content="Quelle"/>
+                        <Label Content="Ort"/>
+                        <Label Content="Stichworte"/>
+                    </StackPanel>
+                    <StackPanel   Grid.Column="2">
+                        <Label Content="Kamera"/>
+                        <Label Content="Blende"/>
+                        <Label Content="Belichtung"/>
+                        <Label Content="ISO"/>
+                        <Label Content="Brennweite"/>
+                        <Label Content="Aufnahmedatum"/>
 
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBlock Margin="0 5 0 5" x:Name="txtObject"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtDetail"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtQuelle"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtOrt"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtStichworte" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Margin="0 5 0 5" x:Name="txtObject"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtDetail"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtQuelle"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtOrt"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtStichworte" TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <TextBlock Margin="0 5 0 5" x:Name="txtKamera"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtBlende"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtBelichtung"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtIso"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtBrennweiste"/>
+                        <TextBlock Margin="0 5 0 5" x:Name="txtAufnahmeDat"/>
+                    </StackPanel>
 
-                    <TextBlock Margin="0 5 0 5" x:Name="txtKamera"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtBlende"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtBelichtung"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtIso"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtBrennweiste"/>
-                    <TextBlock Margin="0 5 0 5" x:Name="txtAufnahmeDat"/>
-                </StackPanel>
-            </Grid>
+                </Grid>
+                
+            </Border>
+           
             <Button Grid.Column="0" Grid.Row="3" Content="Neu" Name="BtnAddDetail" Click="BtnAddDetail_Click"/>
             <UniformGrid Grid.Row="3" Grid.Column="1" Columns="2">
                 <Button Content="Daten ansehen/ändern" Name="MyButton" Click="Button_edit_Click"/>
                 <Button  Content="Datensatz löschen" Name="DelButton" Click="Del_Butten_Click"/>
             </UniformGrid>
-
+            <UniformGrid Grid.Row="3" Grid.Column="4" Columns="2">
+                <Button Content="Bild ansehen" Name="ShowSelectImg" Click="Click_ShowSelectImg" Height="35" Margin="5,0,5,5" VerticalAlignment="Bottom"/>
+                <Button  Content="Bilddat. ansehen/ändern" Name="EditImgData" Click="Click_EditImgData"/>
+            </UniformGrid>
         </Grid>
     </DockPanel>
 </Window>

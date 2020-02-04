@@ -339,7 +339,7 @@ namespace MeineSammlungen_3
                     bitmap.BeginInit();
                     bitmap.CacheOption = BitmapCacheOption.OnLoad;
                     bitmap.UriSource = new Uri(fileName);
-                    bitmap.DecodePixelWidth = 100;
+                    bitmap.DecodePixelWidth = 150;
                     bitmap.EndInit();
 
                     this.Add(new Picture()

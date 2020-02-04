@@ -25,6 +25,7 @@ namespace MeineSammlungen_3
         Int32 ImgCount = 0; //Bildzähler
         Int32 gID = 0; //Grunddaten-ID
         Int32 ModulID = 0; //Modul-ID
+        string objektNr; //Angezeigte Nr des Objekts
         private string ImgPath;
         public    DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public MainWindow()
@@ -71,7 +72,8 @@ namespace MeineSammlungen_3
             //{
                 AblageortText.Text = abl.Ablageort;
             //}
-            lblObjektNr.Content = "Objekt Nr.: " + sel.Nr;
+            objektNr = sel.Nr;
+            lblObjektNr.Content = "Objekt Nr.: " + objektNr;
             ObjektText.Text = sel.Objekt;
             DetailText.Text = sel.Detail;
             //AblageortText.Text = abl;
@@ -99,6 +101,7 @@ namespace MeineSammlungen_3
             PictureList selPicture = new PictureList(gID.ToString());
 
             imgListBox.ItemsSource = selPicture;
+
         }
 
         private void PageModul_Navigated(object sender, NavigationEventArgs e)
@@ -136,6 +139,7 @@ namespace MeineSammlungen_3
                     PageModul.Content = new PageExponate(gID);
                     break;
             }
+
         }
 
         private void ReloadGD()
@@ -151,6 +155,10 @@ namespace MeineSammlungen_3
                 //    MessageBox.Show(el.Objekt + "-" + el.Checked.ToString());
                 //}
                 GdGrid.ItemsSource = fillList;
+                PictureList selPicture = new PictureList(gID.ToString());
+
+                imgListBox.ItemsSource = selPicture;
+
             }
         }
 
@@ -230,6 +238,26 @@ namespace MeineSammlungen_3
         {
 
         }
+
+        private void Click_EditImgData(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(ImgPath) == true)
+            {
+                MessageBox.Show("Bitte zunächst ein Bild auswählen!");
+                return;
+            }
+            //imgPath + "*" + myVarID.ToString().Trim() + "*" + Nr.Trim()
+            //string objNr = ModulID.ToString() + "-" + gID.ToString();
+            ShowMeta iptcchange = new ShowMeta(ImgPath + "*" + gID.ToString() + "*" + objektNr.Trim());
+            //ShowMeta iptcchange = new ShowMeta(ImgPath + "*" + objNr);
+            iptcchange.ShowDialog();
+        }
+
+        private void Click_ShowSelectImg(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 
 }

@@ -27,7 +27,7 @@ namespace MeineSammlungen_3
         Int32 ModulID = 0; //Modul-ID
         string objektNr; //Angezeigte Nr des Objekts
         private string ImgPath;
-        public    DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+        public DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public MainWindow()
         {
             InitializeComponent();
@@ -70,7 +70,7 @@ namespace MeineSammlungen_3
             var abl = (from a in con.Ablage where a.ID == sel.Ablageort_neu select a).FirstOrDefault();
             //foreach (var item in abl)
             //{
-                AblageortText.Text = abl.Ablageort;
+            AblageortText.Text = abl.Ablageort;
             //}
             objektNr = sel.Nr;
             lblObjektNr.Content = "Objekt Nr.: " + objektNr;
@@ -111,15 +111,18 @@ namespace MeineSammlungen_3
 
         private void BtnAddDetail_Click(object sender, RoutedEventArgs e)
         {
+            string openArgs = null;
             switch (ModulID)
             {
                 case 1:
-                    string openArgs = ModulID + "#1"; //1 -> neuer Datensatz
+                    openArgs = ModulID + "#1"; //1 -> neuer Datensatz
                     AddEditMikro mmNeu = new AddEditMikro(openArgs);
                     mmNeu.ShowDialog();
                     break;
                 case 2:
-                    PageModul.Content = new PageExponate(gID);
+                    openArgs = ModulID + "#1"; //1 -> neuer Datensatz
+                    AddEditExponate exNeu = new AddEditExponate(openArgs);
+                    exNeu.ShowDialog();
                     break;
             }
             ReloadGD();
@@ -136,10 +139,12 @@ namespace MeineSammlungen_3
                     ReloadGD();
                     break;
                 case 2:
-                    PageModul.Content = new PageExponate(gID);
+                    string openArgs2 = gID + "#2"; //2 -> Datensatz editieren
+                    AddEditExponate exNeu = new AddEditExponate(openArgs2);
+                    exNeu.ShowDialog();
                     break;
             }
-
+            ReloadGD();
         }
 
         private void ReloadGD()
@@ -164,7 +169,7 @@ namespace MeineSammlungen_3
 
         private void Del_Butten_Click(object sender, RoutedEventArgs e)
         {
-           
+
             MessageBox.Show("Gelöscht wird Objekt Nr.: " + objektNr);
             Grunddaten selected = GdGrid.SelectedItem as Grunddaten;
             if (selected == null)
@@ -189,7 +194,7 @@ namespace MeineSammlungen_3
                 else
                     MessageBox.Show("Bilder sind weiterhin im Ordner " + ImgPath + "vorhanden." + Environment.NewLine + "Ggf. manuell löschen!", "Zugehörige Bilder");
             }
-           
+
             //dann details in Modulen löschen
             if (ModulID == 1)
             {
@@ -242,7 +247,7 @@ namespace MeineSammlungen_3
             //ShowMetaDaten();
             // -> ToDo: ImgHandling
             IPTCDaten iptc = new IPTCDaten(ImgPath);
-            ExifDaten exif = new ExifDaten(ImgPath); 
+            ExifDaten exif = new ExifDaten(ImgPath);
             //ImgHandling.IPTCDaten.myIPTC_Daten(currImg);
 
             txtObject.Text = iptc.iObjekt;
@@ -259,12 +264,12 @@ namespace MeineSammlungen_3
             //txtCRight.Text = iptc.iCopyright;
             //txtHinweise.Text = iptc.iHinweise;
             txtStichworte.Text = iptc.iStichwortText;
-           
+
             //Exif-Daten
             //ExifDaten.clearExif();
             //ImgHandling.EXIF.ReadEXIF(ImgPath);
             txtKamera.Text = exif.Kamera;
-            txtBlende.Text =exif.Blende;
+            txtBlende.Text = exif.Blende;
             txtBelichtung.Text = exif.Belichtung;
             txtIso.Text = exif.ISO;
             txtBrennweiste.Text = exif.Brennweite;

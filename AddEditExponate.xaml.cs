@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,46 +104,258 @@ namespace MeineSammlungen_3
                 }
             }
         }
+     
+
+        private void imgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dynamic row = imgListBox.SelectedItem;
+            if (row == null)
+            {
+                //ImgDisplay.Source = null;
+                //readExif.ClearExit();
+                return;
+            }
+            //MessageBox.Show(row.Path);
+            imgPath = row.Path;
+            ShowMetaDaten(imgPath);
+        }
+
+        private void Btn_Save_Click(object sender, RoutedEventArgs e)
+
+        {
+            if (ablageID == 0)
+            {
+                MessageBox.Show("Bitte Ablage auswählen");
+            }
+            else if (string.IsNullOrEmpty(ObjektText.Text) == true)
+            {
+                MessageBox.Show("Bitte einen Objektnamen einfügen!");
+                return;
+            }
+            else
+            {
+                if (SaveAll() == true)
+                {
+                    if (istNeu == 1)
+                    {
+                        MessageBox.Show("Datensatz als " + Nr + " übernommen.");
+                    }
+                    else
+                        MessageBox.Show("Datensatz " + Nr + " geändert.");
+                    DialogResult = true;
+                }
+                return;
+            }
+
+        }
+
+        private bool SaveAll()
+        {
+
+
+            try
+            {
+                Grunddaten gd = new Grunddaten();
+                Exponate mm = new Exponate();
+
+                gd.ID = myVarID;
+                gd.Objekt = ObjektText.Text.Trim();
+                gd.Detail = DetailText.Text.Trim();
+                gd.Modul = myModID;
+                gd.Bemerkung = BemerkungText.Text.Trim();
+                if (istNeu == 1)
+                {
+                    //neue LfdNr
+                    gd.LfdNr = lfNr;
+                    gd.Nr = myModID.ToString() + "-" + lfNr.ToString().Trim();
+                    gd.Erstellt = DateTime.Now;
+
+                }
+                else
+                {
+                    gd.LfdNr = lfNr;
+                    gd.Nr = Nr.Trim();
+                    gd.Geaendert = DateTime.Now;
+                }
+                Nr = gd.Nr;
+                gd.Ablageort_neu = ablageID;
+                gd.ImgCount = myImgCount;
+                if (ckbWeitereBearbeitung.IsChecked == true)
+                { gd.Checked = true; }
+                else
+                    gd.Checked = false;
+                mm.Fundstelle_Land = LandText.Text;
+                mm.ID = myMID;
+                mm.Fundstelle_Ort = OrtTExt.Text.Trim();
+                mm.Koordinaten = KoordinatenText.Text.Trim();
+                mm.Hinweise = HinweiseExpoText.Text.Trim();
+                mm.Fund_Datum = FunddatumText.Text.Trim();
+               
+                mm.Grunddaten_ID = myVarID;
+
+                if (istNeu == 1)
+                {
+                    //gd.LfdNr = lfNr + 1;
+                    //gd.Erstellt = DateTime.Now;
+                    //gd.Modul = myModID;
+                    gd.ImgCount = 0; //Muss noch angepasst werden
+                    gd.Ablageort_neu = ablageID; //muss noch angepasst werden
+                                                 //gd.Checked = false; //muss noch angepasst werden
+                    Admin.AddGrunddaten(gd);
+                    // die Neue GD-ID und MM-ID holen und  myVarID/myMID damit belegen 
+                    myVarID = (from x in con.Grunddaten select x.ID).Max();
+                    myMID = (from x in con.ModulMikro select x.ID).Max();
+                    mm.Grunddaten_ID = myVarID;
+                    Admin.AddExponate(mm);
+
+                }
+                else
+                {
+
+                    Admin.EditGrunddaten(gd);
+                    Admin.EditExponate(mm);
+                }
+
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Fehler beim Speichern!");
+                return false;
+            }
+
+
+        }
+
+
+
+        private void Btn_Img_new(object sender, RoutedEventArgs e)
+        {
+            if (istNeu == 1)
+            { SaveAll(); }
+            istNeu = 2; //Datensatz ist jetzt nicht mehr neu
+            string curName = null;
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Title = "Bilder einfügen";
+            ofd.Filter = "Image Files(*.JPG;|*.JPG| All files(*.*) | *.*";
+            ofd.RestoreDirectory = true;
+            if (ofd.ShowDialog() == true)
+            {
+                //FilePath = ofd.FileName;
+                Admin.cName = System.IO.Path.GetFileName(ofd.FileName);
+                String _NewName = myVarID.ToString() + "#" + myImgCount + System.IO.Path.GetExtension(ofd.FileName);
+                string NewName = System.IO.Path.Combine(Admin.ImgPath, _NewName);
+                // System.Windows.Forms.MessageBox.Show(NewName);
+                try
+                {
+                    File.Copy(ofd.FileName, NewName);
+                    curName = System.IO.Path.GetFileName(NewName);
+                    PictureList selPicture = new PictureList(curName);
+                    imgListBox.ItemsSource = selPicture;
+                    myImgCount += 1;
+                    LblImgCount.Content = "Zugehörige Bilder: " + myImgCount.ToString();
+
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show("Bild bereits vorhaden!" + Environment.NewLine + ex.Message);
+                    return;
+                }
+                string objNr = myModID.ToString() + "-" + myVarID.ToString();
+                string cImg = System.IO.Path.Combine(Admin.ImgPath, curName);
+
+                ShowMeta iptcchange = new ShowMeta(cImg + "*" + myVarID.ToString().Trim() + "*" + Nr.Trim());
+                iptcchange.ShowDialog();
+                //ShowMetaDaten(curName);
+                DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+                var currGd = (from gd in con.Grunddaten where gd.ID == myVarID select gd.ImgCount).First();
+                currGd = myImgCount;
+                con.SubmitChanges();
+
+                //Speichern, um ImgCount zu aktualisieren
+            }
+        }
+
+        private void ShowMetaDaten(string curName)
+        {
+            IPTCDaten iptc = new IPTCDaten(curName);
+
+            ExifDaten exif = new ExifDaten(curName);
+
+            txtObject.Text = iptc.iObjekt;
+            txtDetail.Text = iptc.iDeteil;
+            txtQuelle.Text = iptc.iQuelle;
+            txtOrt.Text = iptc.iFundstelleOrt;
+            txtBemerkung.Text = iptc.iBemerkung;
+            txtStichworte.Text = iptc.iStichwortText;
+            txtKamera.Text = exif.Kamera;
+            txtBelichtung.Text = exif.Belichtung;
+            txtBlende.Text = exif.Blende;
+            txtBrennweite.Text = exif.Brennweite;
+            txtIso.Text = exif.ISO;
+            txtAufnahmeDat.Text = exif.AufnahmeDat;
+        }
+
+        private void Btn_DelImg(object sender, RoutedEventArgs e)
+        {
+            string fileName = System.IO.Path.GetFileName(imgPath);
+            if (PictureList.delImg.ImgDel(fileName) == true)
+            {
+                MessageBox.Show("Bild wurde entfernt");
+                myImgCount = myImgCount - 1;
+                LblImgCount.Content = "Zugehörige Bilder: " + myImgCount.ToString();
+                var currGd = (from gd in con.Grunddaten where gd.ID == myVarID select gd.ImgCount).First();
+                currGd = myImgCount;
+                con.SubmitChanges();
+                //imgListBox.Items.Clear();
+                //if (myImgCount > 0)
+                {
+                    PictureList selPicture = new PictureList(myVarID.ToString());
+                    imgListBox.ItemsSource = selPicture;
+                }
+            }
+        }
+
+        private void Btn_Return_click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void Btn_ChangeIPTC_click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(imgPath) == true)
+            {
+                MessageBox.Show("Bitte zunächst ein Bild auswählen!");
+                return;
+            }
+            //string objNr = myModID.ToString() + "-" + myVarID.ToString();
+            ShowMeta iptcchange = new ShowMeta(imgPath + "*" + myVarID.ToString().Trim() + "*" + Nr.Trim());
+            iptcchange.ShowDialog();
+            ShowMetaDaten(imgPath);
+        }
+
         private void cbAblage_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            {
+                var ab = (from a in con.Ablage where a.ID == (Int32)cbAblage.SelectedValue select a).First();
+                ablageID = ab.ID;
+                AblageortText.Text = ab.Ablageort;
+                //foreach (var item in ab)
+                //{
+                //    ablageID = item.ID;
+                //    AblageortText.Text = item.Ablageort;
+                //}
+            }
 
         }
 
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            FunddatumText.Text = FdDatePicker.SelectedDate.Value.ToShortDateString();
         }
-
-        private void imgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void Btn_Save_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Btn_Return_click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Btn_Img_new(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Btn_DelImg(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Btn_ChangeIPTC_click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
     }
+
 }

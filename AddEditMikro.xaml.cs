@@ -32,6 +32,7 @@ namespace MeineSammlungen_3
         Int32 lfNr;
         string Nr;
         public DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+
         public AddEditMikro(string _openArgs)
         {
             InitializeComponent();

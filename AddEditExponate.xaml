@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeineSammlungen_3"
         mc:Ignorable="d"
-        Title="AddEditExponate" Height="850" Width="800" WindowStartupLocation="CenterScreen">
+        Title="AddEditExponate" Height="850" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="DimGray" />

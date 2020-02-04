@@ -164,7 +164,59 @@ namespace MeineSammlungen_3
 
         private void Del_Butten_Click(object sender, RoutedEventArgs e)
         {
+           
+            MessageBox.Show("Gelöscht wird Objekt Nr.: " + objektNr);
+            Grunddaten selected = GdGrid.SelectedItem as Grunddaten;
+            if (selected == null)
+            {
+                MessageBox.Show("Bitte Objekt auswählen!");
+            }
+            else
+            {
+                if (MessageBoxResult.Yes == MessageBox.Show("Sind Sie sicher?", "Objekt " + objektNr + " Löschen", MessageBoxButton.YesNo, MessageBoxImage.Warning))
+                {
+                    Admin.DeleteGrunddat(selected);
+                    //DialogResult = false;
+                }
+            }
+            if (ImgCount > 0)
+            {
+                var result = MessageBox.Show("Es sind " + ImgCount.ToString() + " Bilder vorhanden." + Environment.NewLine + "Löschen?", "Fehler", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
+                {
+                    PictureList.delImg.ImgDel(gID.ToString());
+                }
+                else
+                    MessageBox.Show("Bilder sind weiterhin im Ordner " + ImgPath + "vorhanden." + Environment.NewLine + "Ggf. manuell löschen!", "Zugehörige Bilder");
+            }
+           
+            //dann details in Modulen löschen
+            if (ModulID == 1)
+            {
+                if (Admin.DeleteMikro(gID) == true)
+                {
+                    MessageBox.Show("Daten wurden gelöscht.");
+                }
+                else
+                    MessageBox.Show("Es ist ein Fehler beim Löschen der Detaildaaten aufgetreten!");
+            }
+            if (ModulID == 2)
+            {
+                if (Admin.DelExponate(gID) == true)
+                {
+                    MessageBox.Show("Daten wurden gelöscht.");
+                }
+                else
+                    MessageBox.Show("Es ist ein Fehler beim Löschen der Detaildaaten aufgetreten!");
+            }
+            DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+            var gdListe = from g in con.Grunddaten where g.Modul == ModulID select g;
+            GdGrid.ItemsSource = gdListe.ToList();
+            object item = GdGrid.Items[0];
+            GdGrid.SelectedItem = item;
+            GdGrid.ScrollIntoView(item);
 
+            //ShowDaten();
         }
 
         private void ImgListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

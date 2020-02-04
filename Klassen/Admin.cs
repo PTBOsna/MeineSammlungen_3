@@ -82,13 +82,14 @@ namespace MeineSammlungen_3
                 }
 
             }
-            public static void DeleteGrunddat(Grunddaten _ModulMikro)
+            public static bool DeleteGrunddat(Grunddaten grunddaten)
             {
                 using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
                 {
-                    var gd = from g in conn.Grunddaten where g.ID == _ModulMikro.ID select g;
+                    var gd = from g in conn.Grunddaten where g.ID == grunddaten.ID select g;
                     conn.Grunddaten.DeleteAllOnSubmit(gd);
                     conn.SubmitChanges();
+                return true;
                 }
 
             }
@@ -153,15 +154,16 @@ namespace MeineSammlungen_3
                 }
 
             }
-            public static void DeleteMikro(ModulMikro _ModulMikro)
+            public static bool DeleteMikro(int _gdID)
             {
                 using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
                 {
-                    var gd = from g in conn.ModulMikro where g.ID == _ModulMikro.ID select g;
+                    var gd = from g in conn.ModulMikro where g.Grunddaten_ID == _gdID select g;
                     conn.ModulMikro.DeleteAllOnSubmit(gd);
                     conn.SubmitChanges();
+                return true;
                 }
-
+           
             }
             #endregion
             #region Exponate
@@ -190,13 +192,14 @@ namespace MeineSammlungen_3
                 }
 
             }
-            public static void DelExponate(Exponate exponate)
+            public static bool DelExponate(Int32 gID)
             {
                 using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
                 {
-                    var ex = from x in conn.Exponate where x.ID == exponate.ID select x;
+                    var ex = from x in conn.Exponate where x.Grunddaten_ID == gID select x;
                     conn.Exponate.DeleteAllOnSubmit(ex);
                     conn.SubmitChanges();
+                return true;
                 }
 
             }
@@ -228,13 +231,14 @@ namespace MeineSammlungen_3
                 }
 
             }
-            public static void DelMineralien(Mineralien mineralien)
+            public static bool DelMineralien(Int32 gd)
             {
                 using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
                 {
-                    var ex = from m in conn.Mineralien where m.ID == mineralien.ID select m;
+                    var ex = from m in conn.Mineralien where m.Grunddaten_ID == gd select m;
                     conn.Mineralien.DeleteAllOnSubmit(ex);
                     conn.SubmitChanges();
+                return true;
                 }
 
             }

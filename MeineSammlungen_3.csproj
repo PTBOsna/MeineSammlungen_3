@@ -64,9 +64,15 @@
     <Compile Include="AddEditMikro.xaml.cs">
       <DependentUpon>AddEditMikro.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddEditMineral.xaml.cs">
+      <DependentUpon>AddEditMineral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Klassen\MetaDaten.cs" />
     <Compile Include="PageExponate.xaml.cs">
       <DependentUpon>PageExponate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageMineral.xaml.cs">
+      <DependentUpon>PageMineral.xaml</DependentUpon>
     </Compile>
     <Compile Include="ShowMeta.xaml.cs">
       <DependentUpon>ShowMeta.xaml</DependentUpon>
@@ -77,6 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEditMikro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEditMineral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,6 +112,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageMikroMakro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageMineral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

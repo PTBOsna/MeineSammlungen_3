@@ -96,6 +96,9 @@ namespace MeineSammlungen_3
                 case 2:
                     PageModul.Content = new PageExponate(gID);
                     break;
+                case 3:
+                    PageModul.Content = new PageMineral(gID);
+                    break;
             }
             //Img-Liste füllen
             PictureList selPicture = new PictureList(gID.ToString());
@@ -123,6 +126,11 @@ namespace MeineSammlungen_3
                     openArgs = ModulID + "#1"; //1 -> neuer Datensatz
                     AddEditExponate exNeu = new AddEditExponate(openArgs);
                     exNeu.ShowDialog();
+                    break;
+                case 3:
+                    openArgs = ModulID + "#1"; //1 -> neuer Datensatz
+                    AddEditMineral minNeu = new AddEditMineral(openArgs);
+                    minNeu.ShowDialog();
                     break;
             }
             ReloadGD();

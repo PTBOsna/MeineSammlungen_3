@@ -47,6 +47,7 @@ namespace MeineSammlungen_3
             {
                 return;
             }
+            ClearDisplay();
             ModulID = selected.ID;
             var myDetail = from d in con.Grunddaten where d.Modul == ModulID select d;
             GdGrid.ItemsSource = myDetail.ToList();
@@ -321,6 +322,36 @@ namespace MeineSammlungen_3
         private void Click_ShowSelectImg(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ClearDisplay()
+        {
+            lblObjektNr.Content = null;
+            ObjektText.Text = null;
+            DetailText.Text = null;
+            AblageortText.Text = null;
+            BemerkungText.Text = null;
+            ErstelltText.Text = null;
+            GeaendertText.Text = null;
+            AnzahlBilderText.Text = null;
+            lblBearbeitung.Content = null;
+            PageModul.Content = new PageNull();
+            imgListBox.ItemsSource = null;
+            ImgDisplay.Source = null;
+            ImgDisplay.Source = null;
+            //IPTC und EXIF leeren
+            //ImgHandling.EXIF.clearExif();
+            txtObject.Text = null;
+            txtDetail.Text = null;
+            txtQuelle.Text = null;
+            txtOrt.Text = null;
+            txtStichworte.Text = null;
+            txtKamera.Text = null;
+            txtBlende.Text = null;
+            txtBelichtung.Text = null;
+            txtIso.Text = null;
+            txtBrennweiste.Text = null;
+            txtAufnahmeDat.Text = null;
         }
 
     }

@@ -31,6 +31,8 @@ namespace MeineSammlungen_3
         string imgPath;
         Int32 lfNr;
         string Nr;
+        DateTime cErstellt;
+        DateTime cGeaendert;
         public DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
 
         public AddEditMikro(string _openArgs)
@@ -74,8 +76,13 @@ namespace MeineSammlungen_3
                     AblageortText.Text = item.a.Ablageort; //item.g.Ablageort;
                     ablageID = item.a.ID;
                     BemerkungText.Text = item.g.Bemerkung;
-                    ErstelltText.Text = item.g.Erstellt.ToString();
-                    GeaendertText.Text = item.g.Geaendert.ToString();
+                    cErstellt = (DateTime)item.g.Erstellt;
+                    ErstelltText.Text = cErstellt.ToString();
+                    if (item.g.Geaendert != null)
+                    {
+                        cGeaendert = (DateTime)item.g.Geaendert;
+                        GeaendertText.Text = cGeaendert.ToString();
+                    }
                     myImgCount = item.g.ImgCount;
                     LblImgCount.Content = "Zugehörige Bilder: " + myImgCount.ToString();
                     Nr = item.g.Nr;
@@ -168,35 +175,53 @@ namespace MeineSammlungen_3
 
             try
             {
-                Grunddaten gd = new Grunddaten();
+                Grunddaten ngd = new Grunddaten();
                 ModulMikro mm = new ModulMikro();
+                //ngd füllen
+                ngd.ID = myVarID;
+                ngd.Objekt = ObjektText.Text.Trim();
+                ngd.Detail = DetailText.Text.Trim();
+                ngd.Modul = myModID;
+                ngd.Bemerkung = BemerkungText.Text.Trim();
 
-                gd.ID = myVarID;
-                gd.Objekt = ObjektText.Text.Trim();
-                gd.Detail = DetailText.Text.Trim();
-                gd.Modul = myModID;
-                gd.Bemerkung = BemerkungText.Text.Trim();
+                //Nr = ngd.Nr;
+                ngd.Ablageort_neu = ablageID;
+                //ngd.Erstellt = DateTime.Parse( ErstelltText.Text);
+                //ngd.Geaendert = DateTime.Parse(GeaendertText.Text);
+                ngd.ImgCount = myImgCount;
+                if (ckbWeitereBearbeitung.IsChecked == true)
+                { ngd.Checked = true; }
+                else
+                    ngd.Checked = false;
+
                 if (istNeu == 1)
                 {
-                    //neue LfdNr
-                    gd.LfdNr = lfNr;
-                    gd.Nr = myModID.ToString() + "-" + lfNr.ToString().Trim();
-                    gd.Erstellt = DateTime.Now;
+                    ngd.LfdNr = lfNr;
+                    ngd.Nr = myModID.ToString() + "-" + lfNr.ToString().Trim();
+                    //ngd.LfdNr = lfNr + 1;
+                    ngd.Erstellt = DateTime.Now;
+                    ngd.Modul = myModID;
+                    ngd.ImgCount = 0; //Muss noch angepasst werden
+                    ngd.Ablageort_neu = ablageID; //muss noch angepasst werden
+                                                  //ngd.Checked = false; //muss noch angepasst werden
+                                                  //da neu, jetzt gs speichern
+                    Admin.AddGrunddaten(ngd);
+                    //und die Neue GD-ID und MM-ID holen und  myVarID/myMID damit belegen 
+                    myVarID = (from x in con.Grunddaten select x.ID).Max();
+                    //und schon einmal mm neu erstellen mit Grunddaten_ID
+                    mm.Grunddaten_ID = myVarID;
+                    Admin.AddMikro(mm);
+                    myMID = (from x in con.ModulMikro select x.ID).Max();
 
                 }
                 else
                 {
-                    gd.LfdNr = lfNr;
-                    gd.Nr = Nr.Trim();
-                    gd.Geaendert = DateTime.Now;
+                    ngd.LfdNr = lfNr;
+                    ngd.Nr = Nr.Trim();
+                    ngd.Erstellt = cErstellt;
+                    ngd.Geaendert = DateTime.Now;
                 }
-                Nr = gd.Nr;
-                gd.Ablageort_neu = ablageID;
-                gd.ImgCount = myImgCount;
-                if (ckbWeitereBearbeitung.IsChecked == true)
-                { gd.Checked = true; }
-                else
-                    gd.Checked = false;
+                //mm füllen				
                 mm.Farbung = FarbeText.Text;
                 mm.ID = myMID;
                 mm.Aufhellung = HellText.Text.Trim();
@@ -207,28 +232,9 @@ namespace MeineSammlungen_3
                 mm.Schnittebene = SchnittText.Text.Trim();
                 mm.Grunddaten_ID = myVarID;
 
-                if (istNeu == 1)
-                {
-                    //gd.LfdNr = lfNr + 1;
-                    //gd.Erstellt = DateTime.Now;
-                    //gd.Modul = myModID;
-                    gd.ImgCount = 0; //Muss noch angepasst werden
-                    gd.Ablageort_neu = ablageID; //muss noch angepasst werden
-                                                 //gd.Checked = false; //muss noch angepasst werden
-                    Admin.AddGrunddaten(gd);
-                    // die Neue GD-ID und MM-ID holen und  myVarID/myMID damit belegen 
-                    myVarID = (from x in con.Grunddaten select x.ID).Max();
-                    myMID = (from x in con.ModulMikro select x.ID).Max();
-                    mm.Grunddaten_ID = myVarID;
-                    Admin.AddMikro(mm);
-
-                }
-                else
-                {
-
-                    Admin.EditGrunddaten(gd);
-                    Admin.EditMikro(mm);
-                }
+                //jetzt die Änderungen ´von ngd und mm speichern
+                Admin.EditGrunddaten(ngd);
+                Admin.EditMikro(mm);
 
                 return true;
 

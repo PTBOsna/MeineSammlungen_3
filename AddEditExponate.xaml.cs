@@ -74,8 +74,11 @@ namespace MeineSammlungen_3
                     AblageortText.Text = item.a.Ablageort; //item.g.Ablageort;
                     ablageID = item.a.ID;
                     BemerkungText.Text = item.g.Bemerkung;
-                    cErstellt = (DateTime)item.g.Erstellt;
-                    ErstelltText.Text = cErstellt.ToString();
+                    if (item.g.Erstellt != null)
+                    {
+                        cErstellt = (DateTime)item.g.Erstellt;
+                        ErstelltText.Text = cErstellt.ToString();
+                    }
                     if (item.g.Geaendert != null)
                     {
                         cGeaendert = (DateTime)item.g.Geaendert;
@@ -163,12 +166,16 @@ namespace MeineSammlungen_3
             {
                 Grunddaten ngd = new Grunddaten();
                 Exponate mm = new Exponate();
+                //ngd füllen mit Daten aus Textfeldern
                 ngd.ID = myVarID;
                 ngd.Objekt = ObjektText.Text.Trim();
                 ngd.Detail = DetailText.Text.Trim();
                 ngd.Modul = myModID;
                 ngd.Bemerkung = BemerkungText.Text.Trim();
-
+                if (string.IsNullOrEmpty(ErstelltText.Text) != true)
+                {
+                    ngd.Erstellt = DateTime.Parse(ErstelltText.Text.Trim());
+                }
                 //Nr = ngd.Nr;
                 ngd.Ablageort_neu = ablageID;
                 //ngd.Erstellt = DateTime.Parse( ErstelltText.Text);
@@ -183,7 +190,9 @@ namespace MeineSammlungen_3
                 {
                     ngd.LfdNr = lfNr;
                     ngd.Nr = myModID.ToString() + "-" + lfNr.ToString().Trim();
+                    Nr = ngd.Nr; //für Bild Neu
                     //ngd.LfdNr = lfNr + 1;
+                    ErstelltText.Text = DateTime.Now.ToString();
                     ngd.Erstellt = DateTime.Now;
                     ngd.Modul = myModID;
                     ngd.ImgCount = 0; //Muss noch angepasst werden
@@ -196,13 +205,14 @@ namespace MeineSammlungen_3
                     //und schon einmal mm neu erstellen mit Grunddaten_ID
                     mm.Grunddaten_ID = myVarID;
                     Admin.AddExponate(mm);
-                    myMID = (from x in con.Exponate select x.ID).Max();
+                    myMID = (from x in con.ModulMikro select x.ID).Max();
+
                 }
                 else
                 {
                     ngd.LfdNr = lfNr;
                     ngd.Nr = Nr.Trim();
-                    ngd.Erstellt = cErstellt;
+                    ngd.Erstellt = DateTime.Parse(ErstelltText.Text);
                     ngd.Geaendert = DateTime.Now;
                 }
                 mm.Fundstelle_Land = LandText.Text;

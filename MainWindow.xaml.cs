@@ -62,6 +62,7 @@ namespace MeineSammlungen_3
         private void GdGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ImgDisplay.Source = null;
+            ClearDisplay();
             Grunddaten sel = GdGrid.SelectedItem as Grunddaten;
             if (sel == null)
             {

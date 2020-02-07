@@ -58,10 +58,10 @@
         <elementListCompartment Id="7d2e6e89-b331-431f-9f49-e6661cf37d18" absoluteBounds="3.7649999999999997, 5.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="b7e89253-4ea2-4e84-9cd4-269370322a38" absoluteBounds="8.625, 3.625, 2, 2.9247054036458331">
+    <classShape Id="0c38a1c8-eba5-4115-9295-5ce174b466d5" absoluteBounds="8.25, 2.875, 2, 2.9247054036458331">
       <DataClassMoniker Name="/DataClassesSammlungenDataContext/Mineralien" />
       <nestedChildShapes>
-        <elementListCompartment Id="e39c3e28-a5f0-4893-bf8d-05b3f6f6b9d6" absoluteBounds="8.64, 4.085, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9d051950-21cb-4cbc-8840-12725b97d43d" absoluteBounds="8.265, 3.335, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

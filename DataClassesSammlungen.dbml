@@ -80,9 +80,9 @@
       <Column Name="Hinweise" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Grunddaten_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Fund_Datum" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Gewicht" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Volumen" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Dichte" Type="System.Double" DbType="Float" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Gewicht" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="Volumen" Type="System.Single" DbType="Float" CanBeNull="true" />
+      <Column Name="Dichte" Type="System.Single" DbType="Float" CanBeNull="true" />
       <Column Name="Zusammensetzung" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </Type>
   </Table>

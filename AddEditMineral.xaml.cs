@@ -29,6 +29,9 @@ namespace MeineSammlungen_3
         string Nr;
         DateTime cErstellt;
         DateTime cGeaendert;
+        float vol = 0;
+        float gew = 0;
+        float dichte = 0;
         public DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
         public AddEditMineral(string _openArgs)
         {
@@ -98,8 +101,11 @@ namespace MeineSammlungen_3
                     FunddatumText.Text = item.m.Fund_Datum;
                     ZusammensetzungText.Text = item.m.Zusammensetzung;
                     DichteText.Text = item.m.Dichte.ToString();
+                    float.TryParse(DichteText.Text, out dichte);
                     GewichtText.Text = item.m.Gewicht.ToString();
+                    float.TryParse(GewichtText.Text, out gew);
                     VolumenText.Text = item.m.Volumen.ToString();
+                    float.TryParse(VolumenText.Text, out vol);
                     HinweiseExpoText.Text = item.m.Hinweise;
                     myMID = item.m.ID;
                     // Titel anzeigen
@@ -147,6 +153,7 @@ namespace MeineSammlungen_3
                 MessageBox.Show("Bitte einen Objektnamen einfügen!");
                 return;
             }
+
             else
             {
                 if (SaveAll() == true)
@@ -165,6 +172,8 @@ namespace MeineSammlungen_3
 
         private bool SaveAll()
         {
+
+
             try
             {
                 Grunddaten ngd = new Grunddaten();
@@ -194,7 +203,7 @@ namespace MeineSammlungen_3
                     ngd.LfdNr = lfNr;
                     ngd.Nr = myModID.ToString() + "-" + lfNr.ToString().Trim();
                     Nr = ngd.Nr; //für Bild Neu
-                    //ngd.LfdNr = lfNr + 1;
+                                 //ngd.LfdNr = lfNr + 1;
                     ErstelltText.Text = DateTime.Now.ToString();
                     ngd.Erstellt = DateTime.Now;
                     ngd.Modul = myModID;
@@ -208,7 +217,7 @@ namespace MeineSammlungen_3
                     //und schon einmal mm neu erstellen mit Grunddaten_ID
                     mm.Grunddaten_ID = myVarID;
                     Admin.AddMineralien(mm);
-                    myMID = (from x in con.ModulMikro select x.ID).Max();
+                    myMID = (from x in con.Mineralien select x.ID).Max();
 
                 }
                 else
@@ -225,22 +234,10 @@ namespace MeineSammlungen_3
                 mm.Koordinaten = KoordinatenText.Text.Trim();
                 mm.Fund_Datum = FunddatumText.Text.Trim();
                 mm.Zusammensetzung = ZusammensetzungText.Text.Trim();
-                if (string.IsNullOrEmpty(GewichtText.Text)==false)
-                {
-                mm.Gewicht = float.Parse( GewichtText.Text);
-                }
-                if (string.IsNullOrEmpty(VolumenText  .Text) == false)
-                {
-                    mm.Volumen = float.Parse(VolumenText.Text);
-                }
-                if (string.IsNullOrEmpty(GewichtText.Text)==false && string.IsNullOrEmpty( VolumenText.Text) == false)
-                {
-                    mm.Gewicht = float.Parse(GewichtText.Text)/float.Parse(VolumenText.Text);
-                }
-
-                //mm.Volumen = float.Parse( VolumenText.Text);
-                //mm.Dichte = float.Parse( DichteText.Text);
-                mm.Hinweise = HinweiseExpoText.Text.Trim();
+                    mm.Gewicht = gew;
+                    mm.Volumen = vol;
+                    mm.Dichte = dichte;
+                        mm.Hinweise = HinweiseExpoText.Text.Trim();
                 mm.Grunddaten_ID = myVarID;
 
                 //jetzt die Änderungen ´von ngd und mm speichern
@@ -353,16 +350,16 @@ namespace MeineSammlungen_3
             FunddatumText.Text = FdDatePicker.SelectedDate.Value.ToShortDateString();
         }
 
-      
+
 
         private void Btn_Return_click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
         }
 
-       
 
-      
+
+
 
         private void Btn_ChangeIPTC_click(object sender, RoutedEventArgs e)
         {
@@ -377,6 +374,38 @@ namespace MeineSammlungen_3
             ShowMetaDaten(imgPath);
         }
 
-       
+        private void GewichtText_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (float.TryParse(GewichtText.Text, out gew) == false)
+            {
+                MessageBox.Show("Eingabe 'Gewicht' darf nur ein Zahl sein!");
+                return;
+            }
+            
+            CheckValue();
+        }
+        private void VolumenText_LostFocus(object sender, RoutedEventArgs e)
+                {
+            if (float.TryParse(VolumenText.Text, out vol) == false)
+            {
+                MessageBox.Show("Eingabe 'Volumen' darf nur ein Zahl sein!");
+                return;
+            }
+            CheckValue();
+        }
+        private void CheckValue()
+        {
+            if (vol != 0 && gew != 0)
+                   {
+                dichte = gew/vol;
+            }
+            else
+                dichte = 0;
+
+            DichteText.Text = dichte.ToString();
+
+        }
+
+
     }
 }

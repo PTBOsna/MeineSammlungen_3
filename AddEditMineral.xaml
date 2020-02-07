@@ -89,9 +89,9 @@
                 <DatePicker Grid.Column="1" x:Name="FdDatePicker" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
             </Grid>
             <Label Content="Gewicht (g)"/>
-            <TextBox x:Name="GewichtText" />
+            <TextBox x:Name="GewichtText" LostFocus="GewichtText_LostFocus" />
             <Label Content="Volumen (cm³)"/>
-            <TextBox x:Name="VolumenText" />
+            <TextBox x:Name="VolumenText" LostFocus="VolumenText_LostFocus" />
             <Label Content="Dichte (g/cm³"/>
             <TextBox x:Name="DichteText" />
             <Label Content="Zusammensetzung"/>

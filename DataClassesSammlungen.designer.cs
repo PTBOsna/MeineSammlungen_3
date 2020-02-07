@@ -1511,11 +1511,11 @@ namespace MeineSammlungen_3
 		
 		private string _Fund_Datum;
 		
-		private System.Nullable<double> _Gewicht;
+		private System.Nullable<float> _Gewicht;
 		
-		private System.Nullable<double> _Volumen;
+		private System.Nullable<float> _Volumen;
 		
-		private System.Nullable<double> _Dichte;
+		private System.Nullable<float> _Dichte;
 		
 		private string _Zusammensetzung;
 		
@@ -1537,11 +1537,11 @@ namespace MeineSammlungen_3
     partial void OnGrunddaten_IDChanged();
     partial void OnFund_DatumChanging(string value);
     partial void OnFund_DatumChanged();
-    partial void OnGewichtChanging(System.Nullable<double> value);
+    partial void OnGewichtChanging(System.Nullable<float> value);
     partial void OnGewichtChanged();
-    partial void OnVolumenChanging(System.Nullable<double> value);
+    partial void OnVolumenChanging(System.Nullable<float> value);
     partial void OnVolumenChanged();
-    partial void OnDichteChanging(System.Nullable<double> value);
+    partial void OnDichteChanging(System.Nullable<float> value);
     partial void OnDichteChanged();
     partial void OnZusammensetzungChanging(string value);
     partial void OnZusammensetzungChanged();
@@ -1693,7 +1693,7 @@ namespace MeineSammlungen_3
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gewicht", DbType="Float")]
-		public System.Nullable<double> Gewicht
+		public System.Nullable<float> Gewicht
 		{
 			get
 			{
@@ -1713,7 +1713,7 @@ namespace MeineSammlungen_3
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volumen", DbType="Float")]
-		public System.Nullable<double> Volumen
+		public System.Nullable<float> Volumen
 		{
 			get
 			{
@@ -1732,8 +1732,8 @@ namespace MeineSammlungen_3
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dichte", AutoSync=AutoSync.Always, DbType="Float", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
-		public System.Nullable<double> Dichte
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dichte", DbType="Float")]
+		public System.Nullable<float> Dichte
 		{
 			get
 			{

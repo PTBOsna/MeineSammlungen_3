@@ -220,13 +220,13 @@ namespace MeineSammlungen_3
                 using (DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext())
                 {
                     Mineralien min = (from m in conn.Mineralien where m.ID == mineralien.ID select m).FirstOrDefault();
-                    min.Gewicht = mineralien.Gewicht;
+                    min.Gewicht =(float) mineralien.Gewicht;
                     min.Grunddaten_ID = mineralien.Grunddaten_ID;
                     min.Hinweise = mineralien.Hinweise;
                     min.Koordinaten = mineralien.Koordinaten;
-                    min.Volumen = mineralien.Volumen;
+                    min.Volumen = (float) mineralien.Volumen;
                     min.Zusammensetzung = mineralien.Zusammensetzung;
-                    min.Dichte = mineralien.Dichte;
+                    min.Dichte = (float) mineralien.Dichte;
                     conn.SubmitChanges();
                 }
 

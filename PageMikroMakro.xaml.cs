@@ -21,31 +21,38 @@ namespace MeineSammlungen_3
     public partial class PageMikroMakro : Page
     {
         private Int32 gdID;
+
         public PageMikroMakro(Int32 _gID)
         {
             InitializeComponent();
             this.gdID = _gID;
+            DataClassesSammlungenDataContext conn = new DataClassesSammlungenDataContext();
+            ModulMikro currM = (from m in conn.ModulMikro where m.Grunddaten_ID == gdID select m).FirstOrDefault();
+
+            this.DataContext = currM;
         }
 
 
         private void ucPanel_Loaded(object sender, RoutedEventArgs e)
         {
-            DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
-            var currM = from m in con.ModulMikro where m.Grunddaten_ID == gdID select m;
+            //    DataClassesSammlungenDataContext con = new DataClassesSammlungenDataContext();
+            //    var currM = from m in con.ModulMikro where m.Grunddaten_ID == gdID select m;
 
-            foreach (var mMikro in currM)
-            {
-                SchnittText.Text = mMikro.Schnittebene; 
-                SchnittartText.Text = mMikro.Schnittart;
-                FarbeText.Text = mMikro.Farbung;
-                HellText.Text = mMikro.Aufhellung;
-                FixierungText.Text = mMikro.Fixierung;
-                EinschlussText.Text = mMikro.Einschluss;
-                HinweiseText.Text = mMikro.Hineise;
+            //    foreach (var mMikro in currM)
+            //    {
+            //        SchnittText.Text = mMikro.Schnittebene; 
+            //        SchnittartText.Text = mMikro.Schnittart;
+            //        //FarbeText.Text = mMikro.Farbung;
+            //        HellText.Text = mMikro.Aufhellung;
+            //        FixierungText.Text = mMikro.Fixierung;
+            //        EinschlussText.Text = mMikro.Einschluss;
+            //        HinweiseText.Text = mMikro.Hineise;
 
-            }
+            //    }
+            //}
+
         }
 
-       
     }
+    
 }

@@ -6,14 +6,14 @@
       xmlns:local="clr-namespace:MeineSammlungen_3"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="400"
-      Title="PageMineral">
+      Title="PageMineral" Loaded="Page_Loaded">
     <Page.Resources>
         <Style TargetType="Label">
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="FloralWhite"  />
             <Setter Property="FontSize" Value="13" />
         </Style>
         <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Foreground" Value="DarkBlue" />
             <Setter Property="Margin"  Value="4 2 2 2"/>
             <Setter Property="FontSize" Value="13" />
             <Setter Property="FontWeight" Value="DemiBold"/>
@@ -27,23 +27,32 @@
         <StackPanel  Name="PN2" Background="#CCADBEEA" Grid.ColumnSpan="2">
             <Label Content="Deteils Mineralien" FontWeight="Bold" Margin="0 0 0 10"/>
             <Label Content="Fundstelle (Ort)"/>
-            <TextBlock x:Name="OrtTExt" />
+            <TextBlock Text="{Binding Path=Fundstelle_Ort}" />
             <Label Content="Fundstelle (Land)"/>
-            <TextBlock x:Name="LandText" />
+            <TextBlock Text="{Binding Path=Fundstelle_Land}" />
             <Label Content="Koordinaten"/>
-            <TextBlock x:Name="KoordinatenText" />
+            <TextBlock Text="{Binding Path=Koordinaten}" />
             <Label Content="Fund-Datum"/>
-            <TextBlock x:Name="FunddatumText" />
+            <TextBlock Text="{Binding Path=Fund_Datum}" />
             <Label Content="Zusammensetzung"/>
-            <TextBlock x:Name="Zusammensetzung"  TextWrapping="Wrap" />
-            <Label Content="Gewicht (g)"/>
-            <TextBlock x:Name="Gewicht" />
-            <Label Content="Volumen (cm³)"/>
-            <TextBlock x:Name="Volumen" />
-            <Label Content="Dichte (g/cm³)"/>
-            <TextBlock x:Name="Dichte" />
+            <TextBlock Text="{Binding Path=Zusammensetzung}"  TextWrapping="Wrap" />
+            <Border BorderBrush="White" BorderThickness="1" Margin="3">
+                <UniformGrid Columns="3" Rows="3" >
+                    <Label Content="Gewicht (g)"  />
+                    <TextBlock Text="{Binding Path=Gewicht, ConverterCulture=de-DE, StringFormat=n}" Margin="0 5" HorizontalAlignment="Right"  />
+                    <Label Content="g" HorizontalAlignment="Left" Foreground="DarkBlue"/>
+                    <Label Content="Volumen (cm³)" />
+                    <TextBlock Text="{Binding Path=Volumen, ConverterCulture=de-DE, StringFormat=n}" Margin="0 5" HorizontalAlignment="Right" />
+                    <Label Content="cm³" HorizontalAlignment="Left"  Foreground="DarkBlue"/>
+                    <Label Content="Dichte (g/cm³)"/>
+                    <TextBlock Text="{Binding Path=Dichte, ConverterCulture=de-DE, StringFormat=n}" Margin="0 5" HorizontalAlignment="Right"  />
+                    <Label Content="g/cm³" HorizontalAlignment="Left"  Foreground="DarkBlue"/>
+                </UniformGrid>
+
+            </Border>
+
             <Label Content="Hinweise"/>
-            <TextBlock x:Name="HinweiseExpoText"
+            <TextBlock Text="{Binding Path=Hinweise}"
                         TextWrapping="Wrap"/>
         </StackPanel>
 

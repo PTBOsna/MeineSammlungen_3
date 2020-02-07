@@ -77,6 +77,9 @@
     <Compile Include="PageNull.xaml.cs">
       <DependentUpon>PageNull.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShowImage.xaml.cs">
+      <DependentUpon>ShowImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ShowMeta.xaml.cs">
       <DependentUpon>ShowMeta.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PageNull.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

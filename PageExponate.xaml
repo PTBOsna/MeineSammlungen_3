@@ -28,15 +28,15 @@
         <StackPanel  Name="PN2" Background="#CCADBEEA" Grid.ColumnSpan="2">
             <Label Content="Deteils Exponate" FontWeight="Bold" Margin="0 0 0 10"/>
             <Label Content="Fundstelle (Ort)"/>
-            <TextBlock x:Name="OrtTExt" />
+            <TextBlock Text="{Binding Path=Fundstelle_Ort}" />
             <Label Content="Fundstelle (Land)"/>
-            <TextBlock x:Name="LandText" />
+            <TextBlock Text="{Binding Path=Fundstelle_Land}"/>
             <Label Content="Koordinaten"/>
-            <TextBlock x:Name="KoordinatenText" />
+            <TextBlock Text="{Binding Path=Koordinaten}" />
             <Label Content="Fund-Datum"/>
-            <TextBlock x:Name="FunddatumText" />
+            <TextBlock Text="{Binding Path=Fund_Datum}" />
             <Label Content="Hinweise"/>
-            <TextBlock x:Name="HinweiseExpoText"
+            <TextBlock Text="{Binding Path=Hinweise}"
                         TextWrapping="Wrap"
                         />
         </StackPanel>

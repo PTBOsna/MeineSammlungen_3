@@ -28,22 +28,21 @@
         <StackPanel x:Name="ucPanel" Grid.Row="0" Grid.ColumnSpan="2" Background="LightSteelBlue" Loaded="ucPanel_Loaded" >
             <Label Content="Deteils Mikro-Makro" FontWeight="Bold" Margin="0 0 0 10"/>
             <Label Content="Schnittebene"/>
-            <TextBlock x:Name="SchnittText" />
+            <TextBlock Text="{Binding Path=Schnittebene}" />
             <Label Content="Schnittart"/>
-            <TextBlock x:Name="SchnittartText" />
+            <TextBlock Text="{Binding Path=Schnittart}" />
             <Label Content="Färbung"/>
-            <TextBlock x:Name="FarbeText" />
+            <!--<TextBlock x:Name="FarbeText" />-->
+            <TextBlock Text="{Binding Path=Farbung}" />
             <Label Content="Aufhellung"/>
-            <TextBlock x:Name="HellText" />
+            <TextBlock Text="{Binding Path=Aufhellung}" />
             <Label Content="Fixierung"/>
-            <TextBlock x:Name="FixierungText" />
+            <TextBlock Text="{Binding Path=Fixierung}" />
             <Label Content="Einschlussmittel"/>
-            <TextBlock x:Name="EinschlussText" />
+            <TextBlock Text="{Binding Path=Einschluss}" />
             <Label Content="Hinweise"/>
-            <TextBlock x:Name="HinweiseText"
-                        TextWrapping="Wrap"
-                       
-                        />
+            <TextBlock Text="{Binding Path=Hineise}"
+                        TextWrapping="Wrap"/>
         </StackPanel>
     </Grid>
 </Page>

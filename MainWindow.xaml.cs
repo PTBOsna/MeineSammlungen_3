@@ -153,6 +153,11 @@ namespace MeineSammlungen_3
                     AddEditExponate exNeu = new AddEditExponate(openArgs2);
                     exNeu.ShowDialog();
                     break;
+                case 3:
+                    string openArgs3 = gID + "#2"; //2 -> Datensatz editieren
+                    AddEditMineral minNeu = new AddEditMineral(openArgs3);
+                    minNeu.ShowDialog();
+                    break;
             }
             ReloadGD();
         }
@@ -218,6 +223,15 @@ namespace MeineSammlungen_3
             if (ModulID == 2)
             {
                 if (Admin.DelExponate(gID) == true)
+                {
+                    MessageBox.Show("Daten wurden gelöscht.");
+                }
+                else
+                    MessageBox.Show("Es ist ein Fehler beim Löschen der Detaildaaten aufgetreten!");
+            }
+            if (ModulID == 3)
+            {
+                if (Admin.DelMineralien(gID) == true)
                 {
                     MessageBox.Show("Daten wurden gelöscht.");
                 }
@@ -322,7 +336,8 @@ namespace MeineSammlungen_3
 
         private void Click_ShowSelectImg(object sender, RoutedEventArgs e)
         {
-
+            ShowImage si = new ShowImage(ImgPath);
+            si.ShowDialog();
         }
 
         private void ClearDisplay()

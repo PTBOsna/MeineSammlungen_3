@@ -45,15 +45,15 @@ namespace MeineSammlungen_3
     partial void InsertExponate(Exponate instance);
     partial void UpdateExponate(Exponate instance);
     partial void DeleteExponate(Exponate instance);
-    partial void InsertMineralien(Mineralien instance);
-    partial void UpdateMineralien(Mineralien instance);
-    partial void DeleteMineralien(Mineralien instance);
     partial void InsertSettings(Settings instance);
     partial void UpdateSettings(Settings instance);
     partial void DeleteSettings(Settings instance);
     partial void InsertBildtyp(Bildtyp instance);
     partial void UpdateBildtyp(Bildtyp instance);
     partial void DeleteBildtyp(Bildtyp instance);
+    partial void InsertMineralien(Mineralien instance);
+    partial void UpdateMineralien(Mineralien instance);
+    partial void DeleteMineralien(Mineralien instance);
     #endregion
 		
 		public DataClassesSammlungenDataContext() : 
@@ -126,14 +126,6 @@ namespace MeineSammlungen_3
 			}
 		}
 		
-		public System.Data.Linq.Table<Mineralien> Mineralien
-		{
-			get
-			{
-				return this.GetTable<Mineralien>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Settings> Settings
 		{
 			get
@@ -147,6 +139,14 @@ namespace MeineSammlungen_3
 			get
 			{
 				return this.GetTable<Bildtyp>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Mineralien> Mineralien
+		{
+			get
+			{
+				return this.GetTable<Mineralien>();
 			}
 		}
 	}
@@ -1295,308 +1295,6 @@ namespace MeineSammlungen_3
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Mineralien")]
-	public partial class Mineralien : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _Fundstelle_Land;
-		
-		private string _Fundstelle_Ort;
-		
-		private string _Koordinaten;
-		
-		private string _Hinweise;
-		
-		private System.Nullable<int> _Grunddaten_ID;
-		
-		private string _Fund_Datum;
-		
-		private System.Nullable<decimal> _Gewicht;
-		
-		private System.Nullable<decimal> _Volumen;
-		
-		private System.Nullable<decimal> _Dichte;
-		
-		private string _Zusammensetzung;
-		
-    #region Definitionen der Erweiterungsmethoden
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnFundstelle_LandChanging(string value);
-    partial void OnFundstelle_LandChanged();
-    partial void OnFundstelle_OrtChanging(string value);
-    partial void OnFundstelle_OrtChanged();
-    partial void OnKoordinatenChanging(string value);
-    partial void OnKoordinatenChanged();
-    partial void OnHinweiseChanging(string value);
-    partial void OnHinweiseChanged();
-    partial void OnGrunddaten_IDChanging(System.Nullable<int> value);
-    partial void OnGrunddaten_IDChanged();
-    partial void OnFund_DatumChanging(string value);
-    partial void OnFund_DatumChanged();
-    partial void OnGewichtChanging(System.Nullable<decimal> value);
-    partial void OnGewichtChanged();
-    partial void OnVolumenChanging(System.Nullable<decimal> value);
-    partial void OnVolumenChanged();
-    partial void OnDichteChanging(System.Nullable<decimal> value);
-    partial void OnDichteChanged();
-    partial void OnZusammensetzungChanging(string value);
-    partial void OnZusammensetzungChanged();
-    #endregion
-		
-		public Mineralien()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fundstelle_Land", DbType="NVarChar(255)")]
-		public string Fundstelle_Land
-		{
-			get
-			{
-				return this._Fundstelle_Land;
-			}
-			set
-			{
-				if ((this._Fundstelle_Land != value))
-				{
-					this.OnFundstelle_LandChanging(value);
-					this.SendPropertyChanging();
-					this._Fundstelle_Land = value;
-					this.SendPropertyChanged("Fundstelle_Land");
-					this.OnFundstelle_LandChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fundstelle_Ort", DbType="NVarChar(255)")]
-		public string Fundstelle_Ort
-		{
-			get
-			{
-				return this._Fundstelle_Ort;
-			}
-			set
-			{
-				if ((this._Fundstelle_Ort != value))
-				{
-					this.OnFundstelle_OrtChanging(value);
-					this.SendPropertyChanging();
-					this._Fundstelle_Ort = value;
-					this.SendPropertyChanged("Fundstelle_Ort");
-					this.OnFundstelle_OrtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Koordinaten", DbType="NVarChar(255)")]
-		public string Koordinaten
-		{
-			get
-			{
-				return this._Koordinaten;
-			}
-			set
-			{
-				if ((this._Koordinaten != value))
-				{
-					this.OnKoordinatenChanging(value);
-					this.SendPropertyChanging();
-					this._Koordinaten = value;
-					this.SendPropertyChanged("Koordinaten");
-					this.OnKoordinatenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Hinweise", DbType="NVarChar(255)")]
-		public string Hinweise
-		{
-			get
-			{
-				return this._Hinweise;
-			}
-			set
-			{
-				if ((this._Hinweise != value))
-				{
-					this.OnHinweiseChanging(value);
-					this.SendPropertyChanging();
-					this._Hinweise = value;
-					this.SendPropertyChanged("Hinweise");
-					this.OnHinweiseChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grunddaten_ID", DbType="Int")]
-		public System.Nullable<int> Grunddaten_ID
-		{
-			get
-			{
-				return this._Grunddaten_ID;
-			}
-			set
-			{
-				if ((this._Grunddaten_ID != value))
-				{
-					this.OnGrunddaten_IDChanging(value);
-					this.SendPropertyChanging();
-					this._Grunddaten_ID = value;
-					this.SendPropertyChanged("Grunddaten_ID");
-					this.OnGrunddaten_IDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fund_Datum", DbType="NVarChar(50)")]
-		public string Fund_Datum
-		{
-			get
-			{
-				return this._Fund_Datum;
-			}
-			set
-			{
-				if ((this._Fund_Datum != value))
-				{
-					this.OnFund_DatumChanging(value);
-					this.SendPropertyChanging();
-					this._Fund_Datum = value;
-					this.SendPropertyChanged("Fund_Datum");
-					this.OnFund_DatumChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gewicht", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> Gewicht
-		{
-			get
-			{
-				return this._Gewicht;
-			}
-			set
-			{
-				if ((this._Gewicht != value))
-				{
-					this.OnGewichtChanging(value);
-					this.SendPropertyChanging();
-					this._Gewicht = value;
-					this.SendPropertyChanged("Gewicht");
-					this.OnGewichtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volumen", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> Volumen
-		{
-			get
-			{
-				return this._Volumen;
-			}
-			set
-			{
-				if ((this._Volumen != value))
-				{
-					this.OnVolumenChanging(value);
-					this.SendPropertyChanging();
-					this._Volumen = value;
-					this.SendPropertyChanged("Volumen");
-					this.OnVolumenChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dichte", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> Dichte
-		{
-			get
-			{
-				return this._Dichte;
-			}
-			set
-			{
-				if ((this._Dichte != value))
-				{
-					this.OnDichteChanging(value);
-					this.SendPropertyChanging();
-					this._Dichte = value;
-					this.SendPropertyChanged("Dichte");
-					this.OnDichteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zusammensetzung", DbType="NVarChar(255)")]
-		public string Zusammensetzung
-		{
-			get
-			{
-				return this._Zusammensetzung;
-			}
-			set
-			{
-				if ((this._Zusammensetzung != value))
-				{
-					this.OnZusammensetzungChanging(value);
-					this.SendPropertyChanging();
-					this._Zusammensetzung = value;
-					this.SendPropertyChanged("Zusammensetzung");
-					this.OnZusammensetzungChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Settings")]
 	public partial class Settings : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1768,6 +1466,308 @@ namespace MeineSammlungen_3
 					this._Beschreibung = value;
 					this.SendPropertyChanged("Beschreibung");
 					this.OnBeschreibungChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Mineralien")]
+	public partial class Mineralien : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Fundstelle_Land;
+		
+		private string _Fundstelle_Ort;
+		
+		private string _Koordinaten;
+		
+		private string _Hinweise;
+		
+		private System.Nullable<int> _Grunddaten_ID;
+		
+		private string _Fund_Datum;
+		
+		private System.Nullable<double> _Gewicht;
+		
+		private System.Nullable<double> _Volumen;
+		
+		private System.Nullable<double> _Dichte;
+		
+		private string _Zusammensetzung;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnFundstelle_LandChanging(string value);
+    partial void OnFundstelle_LandChanged();
+    partial void OnFundstelle_OrtChanging(string value);
+    partial void OnFundstelle_OrtChanged();
+    partial void OnKoordinatenChanging(string value);
+    partial void OnKoordinatenChanged();
+    partial void OnHinweiseChanging(string value);
+    partial void OnHinweiseChanged();
+    partial void OnGrunddaten_IDChanging(System.Nullable<int> value);
+    partial void OnGrunddaten_IDChanged();
+    partial void OnFund_DatumChanging(string value);
+    partial void OnFund_DatumChanged();
+    partial void OnGewichtChanging(System.Nullable<double> value);
+    partial void OnGewichtChanged();
+    partial void OnVolumenChanging(System.Nullable<double> value);
+    partial void OnVolumenChanged();
+    partial void OnDichteChanging(System.Nullable<double> value);
+    partial void OnDichteChanged();
+    partial void OnZusammensetzungChanging(string value);
+    partial void OnZusammensetzungChanged();
+    #endregion
+		
+		public Mineralien()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fundstelle_Land", DbType="NVarChar(255)")]
+		public string Fundstelle_Land
+		{
+			get
+			{
+				return this._Fundstelle_Land;
+			}
+			set
+			{
+				if ((this._Fundstelle_Land != value))
+				{
+					this.OnFundstelle_LandChanging(value);
+					this.SendPropertyChanging();
+					this._Fundstelle_Land = value;
+					this.SendPropertyChanged("Fundstelle_Land");
+					this.OnFundstelle_LandChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fundstelle_Ort", DbType="NVarChar(255)")]
+		public string Fundstelle_Ort
+		{
+			get
+			{
+				return this._Fundstelle_Ort;
+			}
+			set
+			{
+				if ((this._Fundstelle_Ort != value))
+				{
+					this.OnFundstelle_OrtChanging(value);
+					this.SendPropertyChanging();
+					this._Fundstelle_Ort = value;
+					this.SendPropertyChanged("Fundstelle_Ort");
+					this.OnFundstelle_OrtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Koordinaten", DbType="NVarChar(255)")]
+		public string Koordinaten
+		{
+			get
+			{
+				return this._Koordinaten;
+			}
+			set
+			{
+				if ((this._Koordinaten != value))
+				{
+					this.OnKoordinatenChanging(value);
+					this.SendPropertyChanging();
+					this._Koordinaten = value;
+					this.SendPropertyChanged("Koordinaten");
+					this.OnKoordinatenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Hinweise", DbType="NVarChar(255)")]
+		public string Hinweise
+		{
+			get
+			{
+				return this._Hinweise;
+			}
+			set
+			{
+				if ((this._Hinweise != value))
+				{
+					this.OnHinweiseChanging(value);
+					this.SendPropertyChanging();
+					this._Hinweise = value;
+					this.SendPropertyChanged("Hinweise");
+					this.OnHinweiseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Grunddaten_ID", DbType="Int")]
+		public System.Nullable<int> Grunddaten_ID
+		{
+			get
+			{
+				return this._Grunddaten_ID;
+			}
+			set
+			{
+				if ((this._Grunddaten_ID != value))
+				{
+					this.OnGrunddaten_IDChanging(value);
+					this.SendPropertyChanging();
+					this._Grunddaten_ID = value;
+					this.SendPropertyChanged("Grunddaten_ID");
+					this.OnGrunddaten_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fund_Datum", DbType="NVarChar(50)")]
+		public string Fund_Datum
+		{
+			get
+			{
+				return this._Fund_Datum;
+			}
+			set
+			{
+				if ((this._Fund_Datum != value))
+				{
+					this.OnFund_DatumChanging(value);
+					this.SendPropertyChanging();
+					this._Fund_Datum = value;
+					this.SendPropertyChanged("Fund_Datum");
+					this.OnFund_DatumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gewicht", DbType="Float")]
+		public System.Nullable<double> Gewicht
+		{
+			get
+			{
+				return this._Gewicht;
+			}
+			set
+			{
+				if ((this._Gewicht != value))
+				{
+					this.OnGewichtChanging(value);
+					this.SendPropertyChanging();
+					this._Gewicht = value;
+					this.SendPropertyChanged("Gewicht");
+					this.OnGewichtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volumen", DbType="Float")]
+		public System.Nullable<double> Volumen
+		{
+			get
+			{
+				return this._Volumen;
+			}
+			set
+			{
+				if ((this._Volumen != value))
+				{
+					this.OnVolumenChanging(value);
+					this.SendPropertyChanging();
+					this._Volumen = value;
+					this.SendPropertyChanged("Volumen");
+					this.OnVolumenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dichte", AutoSync=AutoSync.Always, DbType="Float", IsDbGenerated=true, UpdateCheck=UpdateCheck.Never)]
+		public System.Nullable<double> Dichte
+		{
+			get
+			{
+				return this._Dichte;
+			}
+			set
+			{
+				if ((this._Dichte != value))
+				{
+					this.OnDichteChanging(value);
+					this.SendPropertyChanging();
+					this._Dichte = value;
+					this.SendPropertyChanged("Dichte");
+					this.OnDichteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Zusammensetzung", DbType="NVarChar(255)")]
+		public string Zusammensetzung
+		{
+			get
+			{
+				return this._Zusammensetzung;
+			}
+			set
+			{
+				if ((this._Zusammensetzung != value))
+				{
+					this.OnZusammensetzungChanging(value);
+					this.SendPropertyChanging();
+					this._Zusammensetzung = value;
+					this.SendPropertyChanged("Zusammensetzung");
+					this.OnZusammensetzungChanged();
 				}
 			}
 		}

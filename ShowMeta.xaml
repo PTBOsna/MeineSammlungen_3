@@ -71,7 +71,7 @@
         <StackPanel Grid.Column="1" Grid.Row="1">
             <Label Content="Bemerkung (IPTC)"/>
             <TextBox x:Name="txtBemerkung" TextWrapping="Wrap" ToolTip="Bemerkung aus Grunddaten"/>
-            <Label Content="Erstellt"/>
+            <Label Content="Datensatz Erstellt"/>
             <UniformGrid Columns="2">
                 <TextBox x:Name="txtErstellt"/>
                 <DatePicker x:Name="txtErstelltPicker" SelectedDateChanged="DatePicker_SelectedDateChanged"  />

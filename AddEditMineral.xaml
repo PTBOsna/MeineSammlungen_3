@@ -53,7 +53,7 @@
             <Label Content="Detail"/>
             <TextBox x:Name="DetailText" />
             <Label Content="Ablageort"/>
-            <TextBox x:Name="AblageortText" Tag="Am Ablageort sollte die Objeknummer hinzugefügt werden."/>
+            <TextBlock x:Name="AblageortText" Tag="Am Ablageort sollte die Objeknummer hinzugefügt werden."/>
             <Label Content="Ablage ändern"/>
             <!--<ComboBox x:Name="cbAblage"  SelectionChanged="cbAblage_SelectionChanged" SelectedValuePath="ID"  />-->
             <ComboBox x:Name="cbAblage" ItemsSource="{Binding abl}" Margin="5"
@@ -85,7 +85,7 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="FunddatumText" />
+                <TextBlock Grid.Column="0" x:Name="FunddatumText" />
                 <DatePicker Grid.Column="1" x:Name="FdDatePicker" SelectedDateChanged="DatePicker_SelectedDateChanged"/>
             </Grid>
             <Label Content="Gewicht (g)"/>

@@ -205,7 +205,7 @@ namespace MeineSammlungen_3
                     //und schon einmal mm neu erstellen mit Grunddaten_ID
                     mm.Grunddaten_ID = myVarID;
                     Admin.AddExponate(mm);
-                    myMID = (from x in con.ModulMikro select x.ID).Max();
+                    myMID = (from x in con.Exponate select x.ID).Max();
 
                 }
                 else

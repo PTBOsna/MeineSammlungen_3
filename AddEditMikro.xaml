@@ -48,7 +48,7 @@
             <Label Content="Detail"/>
             <TextBox x:Name="DetailText" />
             <Label Content="Ablageort"/>
-            <TextBox x:Name="AblageortText" />
+            <TextBlock x:Name="AblageortText" />
             <Label Content="Ablage ändern"/>
             <!--<ComboBox x:Name="cbAblage"  SelectionChanged="cbAblage_SelectionChanged" SelectedValuePath="ID"  />-->
             <ComboBox x:Name="cbAblage" ItemsSource="{Binding abl}" Margin="5"

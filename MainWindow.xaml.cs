@@ -370,6 +370,22 @@ namespace MeineSammlungen_3
             txtAufnahmeDat.Text = null;
         }
 
+       
+
+        private void ButtonJournal_Click(object sender, RoutedEventArgs e)
+        {
+            MyJournal journal = new MyJournal();
+            try
+            {
+
+            journal.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Fehler beim Speichern");
+            }
+        }
     }
 
 }

@@ -1,0 +1,79 @@
+﻿<Window x:Class="MeineSammlungen_3.MyJournal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MeineSammlungen_3"
+        mc:Ignorable="d"
+        Title="Journal" Height="450" Width="1200" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Grid.Resources>
+            <!--DataTemplate for Published Date column defined in Grid.Resources.  PublishDate is a property on the ItemsSource of type DateTime -->
+            <DataTemplate x:Key="DateTemplateFundDat" >
+                <TextBlock Text="{Binding Path=Funddatum, StringFormat=dd.MM.yyyy}"  HorizontalAlignment="Center" />
+            </DataTemplate>
+            <!--DataTemplate for the Published Date column when in edit mode. -->
+            <DataTemplate x:Key="EditingDateTemplateFunddat">
+                <DatePicker SelectedDate="{Binding Path=Funddatum}"  />
+            </DataTemplate>
+            <DataTemplate x:Key="DateTemplateToSammlung" >
+                <TextBlock Text="{Binding Path=InSammlungDat, StringFormat=dd.MM.yyyy}"  HorizontalAlignment="Center" />
+            </DataTemplate>
+            <!--DataTemplate for the Published Date column when in edit mode. -->
+            <DataTemplate x:Key="EditingDateTemplateToSammlung">
+                <DatePicker SelectedDate="{Binding Path=InSammlungDat}"  />
+            </DataTemplate>
+        </Grid.Resources>
+        <Label Content="Journal Sammlungen/Objekte" FontWeight="Bold"/>
+        <DataGrid Grid.Row="2" x:Name="DGJournal" ItemsSource="{Binding}" 
+                  AutoGenerateColumns="false" 
+                  CanUserAddRows="True" 
+                  CanUserDeleteRows="True"
+                  Margin="5">
+
+            <!--<DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="IsEnabled" Value="{Binding RelativeSource={RelativeSource Self},Path=IsNewItem,Mode=TwoWay}" />
+                </Style>
+            </DataGrid.RowStyle>-->
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="JNr" Binding="{Binding Path=ID}" Width="40"/>
+                <DataGridTextColumn Header="Objekt" Binding="{Binding Path=Objekt}" Width="2*"/>
+                <DataGridTextColumn Header="Beschreibung" Binding="{Binding Path=Beschreibung}" Width="2*"/>
+                <DataGridTextColumn Header="Land" Binding="{Binding Path=Land}" Width="*"/>
+                <DataGridTextColumn Header="Ort" Binding="{Binding Path=Ort}" Width="*"/>
+                <DataGridTextColumn Header="Postition" Binding="{Binding Path=Position}" Width="*"/>
+                <DataGridTextColumn Header="Pos. GPS" Binding="{Binding Path=GPSPosition}" Width="*"/>
+                <DataGridTextColumn Header="Bearbeit.Hinweise" Binding="{Binding Path=Bearbeitung, StringFormat=d}" Width="2*"/>
+                <DataGridTemplateColumn Header="Fund-Datum" 
+                                            CellTemplate="{StaticResource DateTemplateFundDat}" 
+                                            CellEditingTemplate="{StaticResource EditingDateTemplateFunddat}" Width="*" />
+
+                <DataGridTextColumn Header="Bilder" Binding="{Binding Path=Bilder}" Width="*"/>
+                <DataGridCheckBoxColumn Header="In Sammlung" Binding="{Binding Path=InSammlung}"/>
+
+                <DataGridTextColumn Header="Nr." Binding="{Binding Path=SammlungNr}" Width="*"/>
+                <!--<DataGridTextColumn Header="Übernommen am" Binding="{Binding Path=InSmmlungDat}" Width="Auto"/>-->
+                <DataGridTemplateColumn Header="am" 
+                                        CellTemplate="{StaticResource DateTemplateToSammlung}"
+                                        CellEditingTemplate="{StaticResource EditingDateTemplateToSammlung}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <UniformGrid Grid.Row="3" Grid.Column="0" Columns="3">
+            <Button Content="Übernehmen" Click="Btn_Save_Click" Margin="20,5,5,5"/>
+            <Button Content="Übernehmen und Schließen" Click="Btn_SaveClose_Click" Margin="5"/>
+            <Button Content="Schließen" Click="Btn_Close_Click" Margin="5 5 20 5"/>
+        </UniformGrid>
+    </Grid>
+</Window>

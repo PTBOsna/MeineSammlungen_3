@@ -232,6 +232,7 @@ namespace MeineSammlungen_3
             iptc.iStichworte = iptc.iStichworte;
             // ImgHandling.myIPTCDaten.iCopyright = txtCountry.Text;
 
+
             iptc.WriteIPTC(currImg);
             MessageBox.Show("Daten übernommen");
             DialogResult = true;

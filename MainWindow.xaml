@@ -60,6 +60,7 @@
                         <TextBlock Margin="3,0,0,0">Paste</TextBlock>
                     </StackPanel>
                 </Button>
+                <Button Content="Journal" ToolTip="Anzeige Journal" Click="ButtonJournal_Click"/>
             </ToolBar>
         </ToolBarTray>
         <TextBox AcceptsReturn="True" />

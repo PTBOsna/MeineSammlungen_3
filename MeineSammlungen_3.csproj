@@ -71,6 +71,9 @@
       <DependentUpon>AddEditMineral.xaml</DependentUpon>
     </Compile>
     <Compile Include="Klassen\MetaDaten.cs" />
+    <Compile Include="MyJournal.xaml.cs">
+      <DependentUpon>MyJournal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageExponate.xaml.cs">
       <DependentUpon>PageExponate.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MyJournal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageExponate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

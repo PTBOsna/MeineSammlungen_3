@@ -54,6 +54,12 @@ namespace MeineSammlungen_3
     partial void InsertMineralien(Mineralien instance);
     partial void UpdateMineralien(Mineralien instance);
     partial void DeleteMineralien(Mineralien instance);
+    partial void InsertJournal(Journal instance);
+    partial void UpdateJournal(Journal instance);
+    partial void DeleteJournal(Journal instance);
+    partial void InsertJournalImage(JournalImage instance);
+    partial void UpdateJournalImage(JournalImage instance);
+    partial void DeleteJournalImage(JournalImage instance);
     #endregion
 		
 		public DataClassesSammlungenDataContext() : 
@@ -147,6 +153,22 @@ namespace MeineSammlungen_3
 			get
 			{
 				return this.GetTable<Mineralien>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Journal> Journal
+		{
+			get
+			{
+				return this.GetTable<Journal>();
+			}
+		}
+		
+		public System.Data.Linq.Table<JournalImage> JournalImage
+		{
+			get
+			{
+				return this.GetTable<JournalImage>();
 			}
 		}
 	}
@@ -1768,6 +1790,559 @@ namespace MeineSammlungen_3
 					this._Zusammensetzung = value;
 					this.SendPropertyChanged("Zusammensetzung");
 					this.OnZusammensetzungChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Journal")]
+	public partial class Journal : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Objekt;
+		
+		private string _Beschreibung;
+		
+		private string _Land;
+		
+		private string _Ort;
+		
+		private string _Postition;
+		
+		private string _GPSPosition;
+		
+		private string _Bearbeitung;
+		
+		private System.Nullable<System.DateTime> _Funddatum;
+		
+		private System.Nullable<int> _Bilder;
+		
+		private bool _InSammlung;
+		
+		private string _SammlungNr;
+		
+		private System.Nullable<System.DateTime> _InSammlungDat;
+		
+		private EntitySet<JournalImage> _JournalImage;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnObjektChanging(string value);
+    partial void OnObjektChanged();
+    partial void OnBeschreibungChanging(string value);
+    partial void OnBeschreibungChanged();
+    partial void OnLandChanging(string value);
+    partial void OnLandChanged();
+    partial void OnOrtChanging(string value);
+    partial void OnOrtChanged();
+    partial void OnPostitionChanging(string value);
+    partial void OnPostitionChanged();
+    partial void OnGPSPositionChanging(string value);
+    partial void OnGPSPositionChanged();
+    partial void OnBearbeitungChanging(string value);
+    partial void OnBearbeitungChanged();
+    partial void OnFunddatumChanging(System.Nullable<System.DateTime> value);
+    partial void OnFunddatumChanged();
+    partial void OnBilderChanging(System.Nullable<int> value);
+    partial void OnBilderChanged();
+    partial void OnInSammlungChanging(bool value);
+    partial void OnInSammlungChanged();
+    partial void OnSammlungNrChanging(string value);
+    partial void OnSammlungNrChanged();
+    partial void OnInSammlungDatChanging(System.Nullable<System.DateTime> value);
+    partial void OnInSammlungDatChanged();
+    #endregion
+		
+		public Journal()
+		{
+			this._JournalImage = new EntitySet<JournalImage>(new Action<JournalImage>(this.attach_JournalImage), new Action<JournalImage>(this.detach_JournalImage));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Objekt", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string Objekt
+		{
+			get
+			{
+				return this._Objekt;
+			}
+			set
+			{
+				if ((this._Objekt != value))
+				{
+					this.OnObjektChanging(value);
+					this.SendPropertyChanging();
+					this._Objekt = value;
+					this.SendPropertyChanged("Objekt");
+					this.OnObjektChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beschreibung", DbType="NVarChar(250)")]
+		public string Beschreibung
+		{
+			get
+			{
+				return this._Beschreibung;
+			}
+			set
+			{
+				if ((this._Beschreibung != value))
+				{
+					this.OnBeschreibungChanging(value);
+					this.SendPropertyChanging();
+					this._Beschreibung = value;
+					this.SendPropertyChanged("Beschreibung");
+					this.OnBeschreibungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Land", DbType="NChar(50)")]
+		public string Land
+		{
+			get
+			{
+				return this._Land;
+			}
+			set
+			{
+				if ((this._Land != value))
+				{
+					this.OnLandChanging(value);
+					this.SendPropertyChanging();
+					this._Land = value;
+					this.SendPropertyChanged("Land");
+					this.OnLandChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ort", DbType="NChar(50)")]
+		public string Ort
+		{
+			get
+			{
+				return this._Ort;
+			}
+			set
+			{
+				if ((this._Ort != value))
+				{
+					this.OnOrtChanging(value);
+					this.SendPropertyChanging();
+					this._Ort = value;
+					this.SendPropertyChanged("Ort");
+					this.OnOrtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Postition", DbType="NChar(50)")]
+		public string Postition
+		{
+			get
+			{
+				return this._Postition;
+			}
+			set
+			{
+				if ((this._Postition != value))
+				{
+					this.OnPostitionChanging(value);
+					this.SendPropertyChanging();
+					this._Postition = value;
+					this.SendPropertyChanged("Postition");
+					this.OnPostitionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GPSPosition", DbType="NChar(100)")]
+		public string GPSPosition
+		{
+			get
+			{
+				return this._GPSPosition;
+			}
+			set
+			{
+				if ((this._GPSPosition != value))
+				{
+					this.OnGPSPositionChanging(value);
+					this.SendPropertyChanging();
+					this._GPSPosition = value;
+					this.SendPropertyChanged("GPSPosition");
+					this.OnGPSPositionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bearbeitung", DbType="NChar(250)")]
+		public string Bearbeitung
+		{
+			get
+			{
+				return this._Bearbeitung;
+			}
+			set
+			{
+				if ((this._Bearbeitung != value))
+				{
+					this.OnBearbeitungChanging(value);
+					this.SendPropertyChanging();
+					this._Bearbeitung = value;
+					this.SendPropertyChanged("Bearbeitung");
+					this.OnBearbeitungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Funddatum", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Funddatum
+		{
+			get
+			{
+				return this._Funddatum;
+			}
+			set
+			{
+				if ((this._Funddatum != value))
+				{
+					this.OnFunddatumChanging(value);
+					this.SendPropertyChanging();
+					this._Funddatum = value;
+					this.SendPropertyChanged("Funddatum");
+					this.OnFunddatumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bilder", DbType="Int")]
+		public System.Nullable<int> Bilder
+		{
+			get
+			{
+				return this._Bilder;
+			}
+			set
+			{
+				if ((this._Bilder != value))
+				{
+					this.OnBilderChanging(value);
+					this.SendPropertyChanging();
+					this._Bilder = value;
+					this.SendPropertyChanged("Bilder");
+					this.OnBilderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InSammlung", DbType="Bit NOT NULL")]
+		public bool InSammlung
+		{
+			get
+			{
+				return this._InSammlung;
+			}
+			set
+			{
+				if ((this._InSammlung != value))
+				{
+					this.OnInSammlungChanging(value);
+					this.SendPropertyChanging();
+					this._InSammlung = value;
+					this.SendPropertyChanged("InSammlung");
+					this.OnInSammlungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SammlungNr", DbType="NChar(20)")]
+		public string SammlungNr
+		{
+			get
+			{
+				return this._SammlungNr;
+			}
+			set
+			{
+				if ((this._SammlungNr != value))
+				{
+					this.OnSammlungNrChanging(value);
+					this.SendPropertyChanging();
+					this._SammlungNr = value;
+					this.SendPropertyChanged("SammlungNr");
+					this.OnSammlungNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_InSammlungDat", DbType="DateTime")]
+		public System.Nullable<System.DateTime> InSammlungDat
+		{
+			get
+			{
+				return this._InSammlungDat;
+			}
+			set
+			{
+				if ((this._InSammlungDat != value))
+				{
+					this.OnInSammlungDatChanging(value);
+					this.SendPropertyChanging();
+					this._InSammlungDat = value;
+					this.SendPropertyChanged("InSammlungDat");
+					this.OnInSammlungDatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Journal_JournalImage", Storage="_JournalImage", ThisKey="ID", OtherKey="JournalNr")]
+		public EntitySet<JournalImage> JournalImage
+		{
+			get
+			{
+				return this._JournalImage;
+			}
+			set
+			{
+				this._JournalImage.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_JournalImage(JournalImage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Journal = this;
+		}
+		
+		private void detach_JournalImage(JournalImage entity)
+		{
+			this.SendPropertyChanging();
+			entity.Journal = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.JournalImage")]
+	public partial class JournalImage : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _JournalNr;
+		
+		private string _FileName;
+		
+		private string _PathFileName;
+		
+		private EntityRef<Journal> _Journal;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnJournalNrChanging(int value);
+    partial void OnJournalNrChanged();
+    partial void OnFileNameChanging(string value);
+    partial void OnFileNameChanged();
+    partial void OnPathFileNameChanging(string value);
+    partial void OnPathFileNameChanged();
+    #endregion
+		
+		public JournalImage()
+		{
+			this._Journal = default(EntityRef<Journal>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JournalNr", DbType="Int NOT NULL")]
+		public int JournalNr
+		{
+			get
+			{
+				return this._JournalNr;
+			}
+			set
+			{
+				if ((this._JournalNr != value))
+				{
+					if (this._Journal.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnJournalNrChanging(value);
+					this.SendPropertyChanging();
+					this._JournalNr = value;
+					this.SendPropertyChanged("JournalNr");
+					this.OnJournalNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileName", DbType="NChar(50)")]
+		public string FileName
+		{
+			get
+			{
+				return this._FileName;
+			}
+			set
+			{
+				if ((this._FileName != value))
+				{
+					this.OnFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._FileName = value;
+					this.SendPropertyChanged("FileName");
+					this.OnFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PathFileName", DbType="NChar(250)")]
+		public string PathFileName
+		{
+			get
+			{
+				return this._PathFileName;
+			}
+			set
+			{
+				if ((this._PathFileName != value))
+				{
+					this.OnPathFileNameChanging(value);
+					this.SendPropertyChanging();
+					this._PathFileName = value;
+					this.SendPropertyChanged("PathFileName");
+					this.OnPathFileNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Journal_JournalImage", Storage="_Journal", ThisKey="JournalNr", OtherKey="ID", IsForeignKey=true)]
+		public Journal Journal
+		{
+			get
+			{
+				return this._Journal.Entity;
+			}
+			set
+			{
+				Journal previousValue = this._Journal.Entity;
+				if (((previousValue != value) 
+							|| (this._Journal.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Journal.Entity = null;
+						previousValue.JournalImage.Remove(this);
+					}
+					this._Journal.Entity = value;
+					if ((value != null))
+					{
+						value.JournalImage.Add(this);
+						this._JournalNr = value.ID;
+					}
+					else
+					{
+						this._JournalNr = default(int);
+					}
+					this.SendPropertyChanged("Journal");
 				}
 			}
 		}

@@ -57,7 +57,7 @@
                 <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editpaste.png" />
-                        <TextBlock Margin="3,0,0,0">Paste</TextBlock>
+                       
                     </StackPanel>
                 </Button>
                 <Button Content="Journal" ToolTip="Anzeige Journal" Click="ButtonJournal_Click"/>
@@ -78,11 +78,17 @@
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="45"/>
             </Grid.RowDefinitions>
+            <Rectangle Grid.Row="0" Grid.Column="0" Fill="AliceBlue" />
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Height="30">
+                <Label  Content="Suchen"/>
+            <TextBox  x:Name="txtSuche" TextChanged="txtSuche_TextChanged" MinWidth="170" Height="20" VerticalAlignment="Center"/>
+                <Button x:Name="btnClrSuche" Content="X" Width="20" Click="btnClearSearch"/>
+            </StackPanel>
             <StackPanel Grid.Row="1" Grid.Column="0" Background="LightSteelBlue">
-                <Button Content="Alle Module" Name="btAlleModule" Click="BtnAllesClick" />
+                <Button Content="Alle Module"  Name="btAlleModule" Click="BtnAllesClick" />
                 <DataGrid Grid.Row="1" Name="ModulGrid" SelectionChanged="ModulGrid_SelectionChanged" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Modul" Binding="{Binding Path=Modul}"/>
+                        <DataGridTextColumn Header="Modul" Binding="{Binding Path=Modul}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>

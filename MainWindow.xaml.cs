@@ -312,7 +312,8 @@ namespace MeineSammlungen_3
 
         private void MenuItem_Ablage_Click(object sender, RoutedEventArgs e)
         {
-
+            ListeAblage la = new ListeAblage();
+            la.ShowDialog();
         }
 
         private void MenuItem_ImgToGD_Click(object sender, RoutedEventArgs e)
@@ -370,7 +371,7 @@ namespace MeineSammlungen_3
             txtAufnahmeDat.Text = null;
         }
 
-       
+
 
         private void ButtonJournal_Click(object sender, RoutedEventArgs e)
         {
@@ -378,13 +379,27 @@ namespace MeineSammlungen_3
             try
             {
 
-            journal.ShowDialog();
+                journal.ShowDialog();
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(ex.Message, "Fehler beim Speichern");
             }
+        }
+
+
+
+        private void txtSuche_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var myDetail = from d in con.Grunddaten where d.Objekt.Contains(txtSuche.Text) select d;
+            GdGrid.ItemsSource = myDetail.ToList();
+        }
+
+        private void btnClearSearch(object sender, RoutedEventArgs e)
+        {
+            ClearDisplay();
+            txtSuche.Text = null;
         }
     }
 

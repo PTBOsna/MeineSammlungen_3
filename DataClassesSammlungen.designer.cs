@@ -33,9 +33,6 @@ namespace MeineSammlungen_3
     partial void InsertGrunddaten(Grunddaten instance);
     partial void UpdateGrunddaten(Grunddaten instance);
     partial void DeleteGrunddaten(Grunddaten instance);
-    partial void InsertModule(Module instance);
-    partial void UpdateModule(Module instance);
-    partial void DeleteModule(Module instance);
     partial void InsertModulMikro(ModulMikro instance);
     partial void UpdateModulMikro(ModulMikro instance);
     partial void DeleteModulMikro(ModulMikro instance);
@@ -60,6 +57,9 @@ namespace MeineSammlungen_3
     partial void InsertJournalImage(JournalImage instance);
     partial void UpdateJournalImage(JournalImage instance);
     partial void DeleteJournalImage(JournalImage instance);
+    partial void InsertModule(Module instance);
+    partial void UpdateModule(Module instance);
+    partial void DeleteModule(Module instance);
     #endregion
 		
 		public DataClassesSammlungenDataContext() : 
@@ -97,14 +97,6 @@ namespace MeineSammlungen_3
 			get
 			{
 				return this.GetTable<Grunddaten>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Module> Module
-		{
-			get
-			{
-				return this.GetTable<Module>();
 			}
 		}
 		
@@ -169,6 +161,14 @@ namespace MeineSammlungen_3
 			get
 			{
 				return this.GetTable<JournalImage>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Module> Module
+		{
+			get
+			{
+				return this.GetTable<Module>();
 			}
 		}
 	}
@@ -589,120 +589,6 @@ namespace MeineSammlungen_3
 		{
 			this.SendPropertyChanging();
 			entity.Grunddaten = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Module")]
-	public partial class Module : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _Modul;
-		
-		private EntitySet<Grunddaten> _Grunddaten;
-		
-    #region Definitionen der Erweiterungsmethoden
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnModulChanging(string value);
-    partial void OnModulChanged();
-    #endregion
-		
-		public Module()
-		{
-			this._Grunddaten = new EntitySet<Grunddaten>(new Action<Grunddaten>(this.attach_Grunddaten), new Action<Grunddaten>(this.detach_Grunddaten));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modul", DbType="NVarChar(255)")]
-		public string Modul
-		{
-			get
-			{
-				return this._Modul;
-			}
-			set
-			{
-				if ((this._Modul != value))
-				{
-					this.OnModulChanging(value);
-					this.SendPropertyChanging();
-					this._Modul = value;
-					this.SendPropertyChanged("Modul");
-					this.OnModulChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_Grunddaten", Storage="_Grunddaten", ThisKey="ID", OtherKey="Modul")]
-		public EntitySet<Grunddaten> Grunddaten
-		{
-			get
-			{
-				return this._Grunddaten;
-			}
-			set
-			{
-				this._Grunddaten.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Grunddaten(Grunddaten entity)
-		{
-			this.SendPropertyChanging();
-			entity.Module = this;
-		}
-		
-		private void detach_Grunddaten(Grunddaten entity)
-		{
-			this.SendPropertyChanging();
-			entity.Module = null;
 		}
 	}
 	
@@ -2365,6 +2251,144 @@ namespace MeineSammlungen_3
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Module")]
+	public partial class Module : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Modul;
+		
+		private string _Beschreibung;
+		
+		private EntitySet<Grunddaten> _Grunddaten;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnModulChanging(string value);
+    partial void OnModulChanged();
+    partial void OnBeschreibungChanging(string value);
+    partial void OnBeschreibungChanged();
+    #endregion
+		
+		public Module()
+		{
+			this._Grunddaten = new EntitySet<Grunddaten>(new Action<Grunddaten>(this.attach_Grunddaten), new Action<Grunddaten>(this.detach_Grunddaten));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modul", DbType="NVarChar(50)")]
+		public string Modul
+		{
+			get
+			{
+				return this._Modul;
+			}
+			set
+			{
+				if ((this._Modul != value))
+				{
+					this.OnModulChanging(value);
+					this.SendPropertyChanging();
+					this._Modul = value;
+					this.SendPropertyChanged("Modul");
+					this.OnModulChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Beschreibung", DbType="NVarChar(250)")]
+		public string Beschreibung
+		{
+			get
+			{
+				return this._Beschreibung;
+			}
+			set
+			{
+				if ((this._Beschreibung != value))
+				{
+					this.OnBeschreibungChanging(value);
+					this.SendPropertyChanging();
+					this._Beschreibung = value;
+					this.SendPropertyChanged("Beschreibung");
+					this.OnBeschreibungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Module_Grunddaten", Storage="_Grunddaten", ThisKey="ID", OtherKey="Modul")]
+		public EntitySet<Grunddaten> Grunddaten
+		{
+			get
+			{
+				return this._Grunddaten;
+			}
+			set
+			{
+				this._Grunddaten.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Grunddaten(Grunddaten entity)
+		{
+			this.SendPropertyChanging();
+			entity.Module = this;
+		}
+		
+		private void detach_Grunddaten(Grunddaten entity)
+		{
+			this.SendPropertyChanging();
+			entity.Module = null;
 		}
 	}
 }

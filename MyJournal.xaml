@@ -48,7 +48,7 @@
                 </Style>
             </DataGrid.RowStyle>-->
             <DataGrid.Columns >
-                <DataGridTextColumn Header="JNr" Binding="{Binding Path=ID}" Width="40"/>
+                <DataGridTextColumn Header="JNr" Binding="{Binding Path=ID}" Width="40" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Objekt" Binding="{Binding Path=Objekt}" Width="2*"/>
                 <DataGridTextColumn Header="Beschreibung" Binding="{Binding Path=Beschreibung}" Width="2*"/>
                 <DataGridTextColumn Header="Land" Binding="{Binding Path=Land}" Width="*"/>

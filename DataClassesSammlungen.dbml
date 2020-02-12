@@ -19,13 +19,6 @@
       <Association Name="Module_Grunddaten" Member="Module" ThisKey="Modul" OtherKey="ID" Type="Module" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Module" Member="Module">
-    <Type Name="Module">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Modul" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="Module_Grunddaten" Member="Grunddaten" ThisKey="ID" OtherKey="Modul" Type="Grunddaten" />
-    </Type>
-  </Table>
   <Table Name="dbo.ModulMikro" Member="ModulMikro">
     <Type Name="ModulMikro">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -111,6 +104,14 @@
       <Column Name="FileName" Type="System.String" DbType="NChar(50)" CanBeNull="true" />
       <Column Name="PathFileName" Type="System.String" DbType="NChar(250)" CanBeNull="true" />
       <Association Name="Journal_JournalImage" Member="Journal" ThisKey="JournalNr" OtherKey="ID" Type="Journal" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Module" Member="Module">
+    <Type Name="Module">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Modul" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Beschreibung" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="Module_Grunddaten" Member="Grunddaten" ThisKey="ID" OtherKey="Modul" Type="Grunddaten" />
     </Type>
   </Table>
 </Database>

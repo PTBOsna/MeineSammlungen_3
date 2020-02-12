@@ -397,7 +397,7 @@ namespace MeineSammlungen_3
                     fs = File.Open(strFullFileName, FileMode.OpenOrCreate, FileAccess.Read, FileShare.None);
                     fs.Close();
                 }
-                catch (System.IO.IOException ex)
+                catch (System.IO.IOException )
                 {
                     blnReturn = true;
                 }

@@ -74,6 +74,12 @@
     <Compile Include="ListeAblage.xaml.cs">
       <DependentUpon>ListeAblage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListeBildarten.xaml.cs">
+      <DependentUpon>ListeBildarten.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ListeModule.xaml.cs">
+      <DependentUpon>ListeModule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MyJournal.xaml.cs">
       <DependentUpon>MyJournal.xaml</DependentUpon>
     </Compile>
@@ -106,6 +112,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ListeAblage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListeBildarten.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ListeModule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

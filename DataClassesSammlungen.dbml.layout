@@ -8,32 +8,19 @@
         <elementListCompartment Id="48536fb7-3dd4-4871-8fc5-5271e4e72e10" absoluteBounds="0.765, 1.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="20c8bf75-f1af-4c48-89bf-5046ee2359f5" absoluteBounds="3.75, 0.75, 2, 1.1939925130208335">
-      <DataClassMoniker Name="/DataClassesSammlungenDataContext/Module" />
-      <nestedChildShapes>
-        <elementListCompartment Id="af9328a8-07f8-4ccc-ac3d-b5c38176bb92" absoluteBounds="3.765, 1.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="455b0213-cd78-41b5-bdf7-4530e8263f18" absoluteBounds="3.75, 2.75, 2, 2.5401025390625005">
       <DataClassMoniker Name="/DataClassesSammlungenDataContext/ModulMikro" />
       <nestedChildShapes>
         <elementListCompartment Id="c0ccdeb1-32af-4b0b-a2c8-9d427142c986" absoluteBounds="3.765, 3.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(3.75 : 1.34699625651042); (2.75 : 1.34699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/DataClassesSammlungenDataContext/Module/Module_Grunddaten" />
-      <nodes>
-        <classShapeMoniker Id="20c8bf75-f1af-4c48-89bf-5046ee2359f5" />
-        <classShapeMoniker Id="98e9b8f4-a40d-4496-9278-9a507009286e" />
-      </nodes>
-    </associationConnector>
     <classShape Id="c100187f-b005-493f-b8bc-6835d64edb82" absoluteBounds="8.375, 1, 2, 1.3862939453125">
       <DataClassMoniker Name="/DataClassesSammlungenDataContext/Ablage" />
       <nestedChildShapes>
         <elementListCompartment Id="d0da9942-ef6c-4fb8-9725-3dd785217a0e" absoluteBounds="8.39, 1.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.19639322916667); (8.375 : 2.19639322916667)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 1.09375); (8.375 : 1.09375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/DataClassesSammlungenDataContext/Grunddaten/Grunddaten_Ablage" />
       <nodes>
         <classShapeMoniker Id="98e9b8f4-a40d-4496-9278-9a507009286e" />
@@ -76,11 +63,24 @@
         <elementListCompartment Id="812b5795-29ac-4caa-9765-76260b5119c4" absoluteBounds="6.765, 7.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 7.57619466145833); (6.75 : 7.57619466145833)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 7.57619466145833); (6.75 : 7.57619466145833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DataClassesSammlungenDataContext/Journal/Journal_JournalImage" />
       <nodes>
         <classShapeMoniker Id="34017733-b4ae-4964-9ea6-b0b6dc65e64f" />
         <classShapeMoniker Id="adc9585b-730d-4b6a-a3ff-525172c6aad8" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="07e99f3c-7d12-4e74-a627-328d60b3a74e" absoluteBounds="4.875, 1.25, 2, 1.3862939453125">
+      <DataClassMoniker Name="/DataClassesSammlungenDataContext/Module" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5d4d4964-e628-4fc5-b361-0a77ee1c7b8e" absoluteBounds="4.89, 1.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.875 : 1.94314697265625); (2.75 : 1.94314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataClassesSammlungenDataContext/Module/Module_Grunddaten" />
+      <nodes>
+        <classShapeMoniker Id="07e99f3c-7d12-4e74-a627-328d60b3a74e" />
+        <classShapeMoniker Id="98e9b8f4-a40d-4496-9278-9a507009286e" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

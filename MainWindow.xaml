@@ -38,8 +38,8 @@
                 <MenuItem Header="Settings" Click="Click_SettingMnu"/>
             </MenuItem>
             <MenuItem Header="_Listen">
-                <MenuItem Header="_Bildarten"/>
-                <MenuItem Header="_Module"/>
+                <MenuItem Header="_Bildarten" Click="MenuItem_Bildarten_Click"/>
+                <MenuItem Header="_Module" Click="MenuItem_Module_Click"/>
                 <MenuItem Header="_Ablageort" Click="MenuItem_Ablage_Click"/>
             </MenuItem>
             <MenuItem Header="Extras">

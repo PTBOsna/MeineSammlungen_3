@@ -401,6 +401,18 @@ namespace MeineSammlungen_3
             ClearDisplay();
             txtSuche.Text = null;
         }
+
+        private void MenuItem_Bildarten_Click(object sender, RoutedEventArgs e)
+        {
+            ListeBildarten lb = new ListeBildarten();
+            lb.ShowDialog();
+        }
+
+        private void MenuItem_Module_Click(object sender, RoutedEventArgs e)
+        {
+            ListeModule md = new ListeModule();
+            md.ShowDialog();
+        }
     }
 
 }

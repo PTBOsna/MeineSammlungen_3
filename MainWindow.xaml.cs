@@ -307,7 +307,8 @@ namespace MeineSammlungen_3
 
         private void Click_SettingMnu(object sender, RoutedEventArgs e)
         {
-
+            MySettings ms = new MySettings();
+            ms.ShowDialog();
         }
 
         private void MenuItem_Ablage_Click(object sender, RoutedEventArgs e)

@@ -38,11 +38,18 @@
     <StartupObject>MeineSammlungen_3.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=66aa232afad40158, processorArchitecture=MSIL">
+      <HintPath>packages\Ookii.Dialogs.Wpf.1.1.0\lib\net45\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -83,6 +90,9 @@
     <Compile Include="MyJournal.xaml.cs">
       <DependentUpon>MyJournal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MySettings.xaml.cs">
+      <DependentUpon>MySettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageExponate.xaml.cs">
       <DependentUpon>PageExponate.xaml</DependentUpon>
     </Compile>
@@ -99,6 +109,9 @@
       <DependentUpon>ShowMeta.xaml</DependentUpon>
     </Compile>
     <Compile Include="System\Windows\Forms.cs" />
+    <Compile Include="testform.xaml.cs">
+      <DependentUpon>testform.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddEditExponate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +157,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MySettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageExponate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -165,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ShowMeta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="testform.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,6 +221,7 @@
     <None Include="DataClassesSammlungen.dbml.layout">
       <DependentUpon>DataClassesSammlungen.dbml</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

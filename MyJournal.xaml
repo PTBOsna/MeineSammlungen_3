@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MeineSammlungen_3"
         mc:Ignorable="d"
-        Title="Journal" Height="450" Width="1200" WindowStartupLocation="CenterScreen">
+        Title="Journal" Height="650" Width="1200" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

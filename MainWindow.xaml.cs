@@ -414,6 +414,12 @@ namespace MeineSammlungen_3
             ListeModule md = new ListeModule();
             md.ShowDialog();
         }
+
+        private void Click_mnu_test(object sender, RoutedEventArgs e)
+        {
+            testform tst = new testform();
+            tst.ShowDialog();
+        }
     }
 
 }

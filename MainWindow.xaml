@@ -45,6 +45,7 @@
             <MenuItem Header="Extras">
                 <MenuItem Header="Bilder Zuordnung" Click="MenuItem_ImgToGD_Click"/>
             </MenuItem>
+            <MenuItem Header="Test" Click="Click_mnu_test"/>
         </Menu>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar Height="40">
@@ -73,35 +74,41 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="35"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="45"/>
             </Grid.RowDefinitions>
-            <Rectangle Grid.Row="0" Grid.Column="0" Fill="AliceBlue" />
-            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Height="30">
-                <Label  Content="Suchen"/>
-            <TextBox  x:Name="txtSuche" TextChanged="txtSuche_TextChanged" MinWidth="170" Height="20" VerticalAlignment="Center"/>
-                <Button x:Name="btnClrSuche" Content="X" Width="20" Click="btnClearSearch"/>
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                
+                <Button Content="Alle Module" Name="btAlleModule" Click="BtnAllesClick" />
             </StackPanel>
+            <Border Grid.Row="1" Grid.Column="0" BorderBrush="DimGray" BorderThickness="1">
             <StackPanel Grid.Row="1" Grid.Column="0" Background="LightSteelBlue">
-                <Button Content="Alle Module"  Name="btAlleModule" Click="BtnAllesClick" />
+                <Rectangle Grid.Row="0" Grid.Column="0" Fill="AliceBlue" />
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Height="30">
+                    <Label  Content="Suchen"/>
+                    <TextBox  x:Name="txtSuche" TextChanged="txtSuche_TextChanged" MinWidth="170" Height="20" VerticalAlignment="Center"/>
+                    <Button x:Name="btnClrSuche" Content="X" Width="20" Click="btnClearSearch"/>
+                </StackPanel>
+                
                 <DataGrid Grid.Row="1" Name="ModulGrid" SelectionChanged="ModulGrid_SelectionChanged" AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Modul" Binding="{Binding Path=Modul}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </StackPanel>
+            </Border>
             <DataGrid Grid.Row="2" x:Name="GdGrid" AutoGenerateColumns="False" SelectionChanged="GdGrid_SelectionChanged">
                 <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nr." Binding="{Binding Path=Nr}"/>
                     <DataGridTextColumn Header="Objekt" Binding="{Binding Path=Objekt}"/>
-                    <DataGridTextColumn Header="Detail" Binding="{Binding Path=Detail}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="2" Grid.Column="1" >
                 <!--Anzeige Grunddaten-->
 
-                <Border Grid.Row="2" Grid.Column="1"  Margin="0 5 0 5" BorderBrush="DimGray" BorderThickness="1">
+                <Border Grid.Row="2" Grid.Column="1"  BorderBrush="DimGray" BorderThickness="1">
                     <StackPanel Grid.Row="0" Background="AliceBlue">
                         <Label Name="lblObjektNr" Content="Objekt-Nr.: " FontWeight="Bold" Tag="ModulID - ObjektID"/>
                         <Label Content="Objekt"/>
@@ -123,7 +130,7 @@
                 </Border>
             </Grid>
             <!--UserControl (Module)-->
-            <Border Margin="0 5 0 5" Grid.Column="2" Grid.Row="2" BorderBrush="DimGray" BorderThickness="1">
+            <Border  Grid.Column="2" Grid.Row="2" BorderBrush="DimGray" BorderThickness="1">
                 <!--<StackPanel Background="Azure" x:Name="ucPanel"  Grid.Row="1">
 <
                     </StackPanel>-->
@@ -162,7 +169,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>-->
             <!--Img-Anzeige-->
-            <Border Margin="5" Grid.Column="4" Grid.Row="2" 
+            <Border  Grid.Column="3" Grid.Row="1" 
                    
                     BorderBrush="DimGray" BorderThickness="1">
                 <ScrollViewer x:Name="ShowImg" Grid.Row="2" Margin="5">
@@ -173,13 +180,13 @@
         <!--</Grid>-->
         <!--Metadaten anzeigen-->
             
-                <Border Margin="5" Grid.Row="1" Grid.Column="4" BorderBrush="DimGray" BorderThickness="1">
+                <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="DimGray" BorderThickness="1">
                  
-                <Grid Grid.Row="1" Grid.Column="4">
+                <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
@@ -195,7 +202,7 @@
                         <Label Content="Belichtung"/>
                         <Label Content="ISO"/>
                         <Label Content="Brennweite"/>
-                        <Label Content="Aufnahmedatum"/>
+                        <Label Content="Aufnahmedat."/>
 
                     </StackPanel>
                     <StackPanel Grid.Column="1">
@@ -223,10 +230,13 @@
                 <Button Content="Daten ansehen/ändern" Name="MyButton" Click="Button_edit_Click"/>
                 <Button  Content="Datensatz löschen" Name="DelButton" Click="Del_Butten_Click"/>
             </UniformGrid>
-            <UniformGrid Grid.Row="3" Grid.Column="4" Columns="2">
-                <Button Content="Bild ansehen" Name="ShowSelectImg" Click="Click_ShowSelectImg" Height="35" Margin="5,0,5,5" VerticalAlignment="Bottom"/>
-                <Button  Content="Bilddat. ansehen/ändern" Name="EditImgData" Click="Click_EditImgData"/>
-            </UniformGrid>
+            <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
+                <Button  Content="Metadaten ansehen/ändern" Name="EditImgData"   Click="Click_EditImgData" VerticalAlignment="Bottom"/>
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="3">
+                <Button Content="Bild ansehen" Name="ShowSelectImg" Click="Click_ShowSelectImg"   VerticalAlignment="Bottom"/>
+                
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>

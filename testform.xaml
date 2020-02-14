@@ -6,7 +6,25 @@
         xmlns:local="clr-namespace:MeineSammlungen_3"
         mc:Ignorable="d"
         Title="testform" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+    <Window.CommandBindings>
+        <CommandBinding Command="NavigationCommands.BrowseBack" CanExecute="BrowseBack_CanExecute" Executed="BrowseBack_Executed" />
+        <CommandBinding Command="NavigationCommands.BrowseForward" CanExecute="BrowseForward_CanExecute" Executed="BrowseForward_Executed" />
+        <CommandBinding Command="NavigationCommands.GoToPage" CanExecute="GoToPage_CanExecute" Executed="GoToPage_Executed" />
+    </Window.CommandBindings>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Button Command="NavigationCommands.BrowseBack">
+                <Image Source="/Images/Arrow_left.png" Width="16" Height="16" />
+            </Button>
+            <Button Command="NavigationCommands.BrowseForward">
+                <Image Source="/Images/Arrow_right.png" Width="16" Height="16" />
+            </Button>
+            <Separator />
+            <TextBox Name="txtUrl" Width="300" KeyUp="txtUrl_KeyUp" />
+            <Button Command="NavigationCommands.GoToPage">
+                <Image Source="/Images/world_go.png" Width="16" Height="16" />
+            </Button>
+        </ToolBar>
+        <WebBrowser Name="wbSample" Navigating="wbSample_Navigating"></WebBrowser>
+    </DockPanel>
 </Window>
